@@ -123,12 +123,30 @@
                     <li><a href="contato.html">Contato</a></li>
                 </ul>
             </nav>
-            <div style="display: flex; gap: 12px; align-items: center;">
+            <div class="header-desktop-actions" style="display: flex; gap: 12px; align-items: center;">
                 <a href="login.html" class="btn btn-outline-dark" style="padding: 10px 20px; font-size: 13px;">Área do Investidor</a>
                 <a href="contato.html" class="btn btn-teal" style="padding: 10px 20px; font-size: 13px;">Fale com Especialista</a>
             </div>
+            <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menu"><i class="fa-solid fa-bars"></i></button>
         </div>
     </header>
+
+    <!-- MOBILE NAV -->
+    <div class="mobile-nav-overlay" id="nav-overlay"></div>
+    <div class="mobile-nav-drawer" id="nav-drawer">
+        <button class="drawer-close" id="drawer-close" aria-label="Fechar menu"><i class="fa-solid fa-xmark"></i></button>
+        <div class="drawer-logo">C4S</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sobre.html">Sobre a C4S</a></li>
+            <li><a href="investidores.html">Investidores</a></li>
+            <li><a href="contato.html">Contato</a></li>
+        </ul>
+        <div class="drawer-actions">
+            <a href="login.html" class="btn btn-outline-dark">Área do Investidor</a>
+            <a href="contato.html" class="btn btn-teal">Fale com Especialista</a>
+        </div>
+    </div>
     
     <!-- HERO SECTION -->
     <section class="hero" style="padding-bottom: 30px;">
@@ -268,6 +286,18 @@
 
     <!-- SCRIPT SIMPLES PARA ALTERNAR AS ABAS (JavaScript puro e leve) -->
     <script>
+        (function() {
+            var btn = document.getElementById('hamburger-btn');
+            var overlay = document.getElementById('nav-overlay');
+            var drawer = document.getElementById('nav-drawer');
+            var closeBtn = document.getElementById('drawer-close');
+            function openMenu() { overlay.classList.add('open'); drawer.classList.add('open'); document.body.style.overflow = 'hidden'; }
+            function closeMenu() { overlay.classList.remove('open'); drawer.classList.remove('open'); document.body.style.overflow = ''; }
+            if (btn) btn.addEventListener('click', openMenu);
+            if (overlay) overlay.addEventListener('click', closeMenu);
+            if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+        })();
+
         function switchTab(type) {
             // Remove classes ativas de todas as abas e blocos
             document.getElementById('tab-privacidade').classList.remove('active');

@@ -769,6 +769,118 @@ footer {
    MEDIA QUERIES (RESPONSIVIDADE)
    ========================================================================== */
 
+/* ── Hamburger Button ── */
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--c4s-dark-teal);
+    font-size: 1.4rem;
+    border-radius: 8px;
+    transition: background 0.2s;
+    z-index: 1100;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+.hamburger-btn:hover {
+    background: var(--c4s-light-teal);
+}
+
+/* ── Mobile Nav Overlay ── */
+.mobile-nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 38, 35, 0.55);
+    z-index: 1050;
+    backdrop-filter: blur(2px);
+}
+.mobile-nav-overlay.open {
+    display: block;
+}
+
+/* ── Mobile Nav Drawer ── */
+.mobile-nav-drawer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--bg-white);
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 28px;
+    box-shadow: -8px 0 32px rgba(0,0,0,0.12);
+    transition: right 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+}
+.mobile-nav-drawer.open {
+    right: 0;
+}
+.mobile-nav-drawer .drawer-close {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--text-gray);
+    cursor: pointer;
+    margin-bottom: 24px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+.mobile-nav-drawer .drawer-close:hover {
+    background: var(--bg-gray);
+}
+.mobile-nav-drawer .drawer-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--c4s-teal);
+    margin-bottom: 32px;
+}
+.mobile-nav-drawer ul {
+    list-style: none;
+    margin-bottom: 32px;
+}
+.mobile-nav-drawer ul li {
+    margin-bottom: 4px;
+}
+.mobile-nav-drawer ul li a {
+    display: block;
+    padding: 14px 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-gray);
+    border-radius: 8px;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+    text-decoration: none;
+}
+.mobile-nav-drawer ul li a:hover,
+.mobile-nav-drawer ul li a.active {
+    color: var(--c4s-teal);
+    background: var(--c4s-light-teal);
+    border-left-color: var(--c4s-teal);
+}
+.mobile-nav-drawer .drawer-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+}
+.mobile-nav-drawer .drawer-actions a {
+    display: block;
+    text-align: center;
+}
+
 @media (max-width: 1024px) {
     .bento-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -790,13 +902,14 @@ footer {
 }
 
 @media (max-width: 900px) {
-    .benefits-grid, 
-    .market-grid, 
+    .benefits-grid,
+    .market-grid,
     .cards-grid {
         grid-template-columns: 1fr;
     }
     .cards-grid {
         max-width: 500px;
+        margin: 0 auto;
     }
     .footer-grid {
         grid-template-columns: 1fr 1fr;
@@ -805,7 +918,13 @@ footer {
 
 @media (max-width: 768px) {
     nav ul {
-        display: none; /* Simplificação do menu para mobile */
+        display: none;
+    }
+    .header-desktop-actions {
+        display: none !important;
+    }
+    .hamburger-btn {
+        display: flex;
     }
     .bento-grid {
         grid-template-columns: 1fr;
@@ -837,232 +956,105 @@ footer {
     }
 }
 
-/* ==========================================
-   RESPONSIVIDADE MÁXIMA (SMARTPHONES < 600px)
-   ========================================== */
-@media (max-width: 600px) {
-    
-    /* 1. Correção da Tipografia Principal (Evita quebra de palavras) */
-    .hero-content-box h1 {
-        font-size: 32px !important;
-        line-height: 1.2;
-    }
-    
-    .frente-title, .cta-final-card h2, .security-card h2 {
-        font-size: 30px !important;
-    }
 
-    .hero-content-box p {
+    .bento-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .item-1 {
+        grid-column: span 2;
+        height: 180px;
+        min-height: 180px;
+    }
+    .item-2, .item-3, .item-4, .item-5 {
+        grid-column: span 1;
+        min-height: 200px;
+    }
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    .hero h1 {
+        font-size: 36px;
+    }
+    .hero p.subtitle {
         font-size: 16px;
     }
-
-    /* 2. Empilhamento Inteligente de Botões (Usabilidade de Polegar) */
-    .hero-action-buttons {
-        flex-direction: column;
-        width: 100%;
-        gap: 12px;
-    }
-    
-    .hero-action-buttons button {
-        width: 100%;
-        justify-content: center;
-    }
-
-    /* Ajuste fino dos botões no Header do Mobile */
-    .header-actions {
-        display: none; /* Esconde os botões soltos no mobile para dar lugar ao Menu */
-    }
-
-    /* 3. Correção Crítica do Rodapé (Evita quebra horizontal) */
-    .footer-container {
-        grid-template-columns: 1fr !important; /* Força 1 coluna apenas */
-        gap: 32px;
-        text-align: center;
-    }
-
-    /* Centraliza os logos e textos do rodapé no celular */
-    .footer-brand {
-        display: flex;
+    .hero-buttons {
         flex-direction: column;
         align-items: center;
     }
-
-    .logo-img-footer {
-        margin-left: 0;
-    }
-
-    .footer-brand p {
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 320px;
         text-align: center;
     }
-
-    /* 4. Respiros em Cards e Frentes */
-    .frente-container, .cta-final-card, .security-card {
-        padding: 40px 24px !important;
-        border-radius: 24px;
+    .services-section,
+    .profiles-section,
+    .cta-section {
+        padding: 60px 20px;
+        border-radius: 20px;
+        margin: 0 10px;
     }
-
-    .frente-media {
-        height: 240px; /* Reduz a altura dos mockups no celular */
+    .section-header h2 {
+        font-size: 30px;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    .footer-bottom div:last-child {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .market-graphic {
+        height: 280px;
+        padding: 40px;
+    }
+    .graphic-box {
+        height: 300px;
+    }
+    .floating-card-small {
+        right: -10px;
+        bottom: -10px;
+        width: 70%;
+    }
+    .profile-card {
+        padding: 32px;
+    }
+    .profile-card-wide {
+        padding: 36px 24px;
+    }
+    .cta-section h2 {
+        font-size: 30px;
     }
 }
 
-/* Responsividade Intermediária (Tablets < 1024px) - Ajuste no Footer */
-@media (max-width: 1024px) and (min-width: 601px) {
-    .footer-container {
-        grid-template-columns: 1fr 1fr; /* 2 colunas em tablets */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 28px;
+        letter-spacing: -0.5px;
     }
-}
-
-/* =========================================
-   COMPONENTE DE LOGIN - C4S
-   ========================================= */
-
-/* Container Glassmorphism - Adapta-se ao fundo que já existe no seu site */
-.c4s-login-wrapper {
-    background: rgba(30, 41, 59, 0.4); /* Fundo semi-transparente escuro */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
-    padding: 40px;
-    width: 100%;
-    max-width: 420px;
-    margin: 0 auto; /* Centraliza na div pai */
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
-}
-
-/* Textos - Herdam a fonte do site */
-.title-login {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #ffffff; /* Ajuste para a cor de título padrão do seu site */
-    text-align: center;
-}
-
-.subtitle-login {
-    color: #94a3b8; /* Cinza claro */
-    font-size: 14px;
-    text-align: center;
-    margin-bottom: 32px;
-}
-
-/* Campos de Input */
-.form-group {
-    margin-bottom: 20px;
-}
-
-.c4s-input {
-    width: 100%;
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    padding: 14px 16px;
-    border-radius: 8px;
-    font-size: 15px;
-    font-family: inherit; /* Herda a fonte principal do seu site */
-    transition: all 0.3s ease;
-    outline: none;
-}
-
-.c4s-input::placeholder {
-    color: #64748b;
-}
-
-/* Hover e Focus com a cor principal (Teal) */
-.c4s-input:focus {
-    border-color: #0d9488; /* Substitua pelo Verde/Teal da C4S */
-    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
-}
-
-/* Utilitários e Links */
-.form-utils {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 24px;
-}
-
-.forgot-pass {
-    color: #0d9488; /* Cor principal da C4S */
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.forgot-pass:hover {
-    color: #14b8a6;
-    text-decoration: underline;
-}
-
-/* Botão Principal */
-.btn-submit {
-    width: 100%;
-    background-color: #0d9488; /* Cor principal da C4S */
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: inherit; /* Herda a fonte do site */
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-}
-
-.btn-submit:hover:not(:disabled) {
-    background-color: #0f766e; /* Cor principal mais escura */
-}
-
-.btn-submit:active:not(:disabled) {
-    transform: scale(0.98);
-}
-
-.btn-submit:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-
-/* Feedback de Erro/Sucesso */
-.feedback-msg {
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 20px;
-    text-align: center;
-    display: none;
-}
-
-.feedback-msg.error {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: #fca5a5;
-    border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-.feedback-msg.success {
-    background-color: rgba(13, 148, 136, 0.1);
-    color: #5eead4;
-    border: 1px solid rgba(13, 148, 136, 0.3);
-}
-
-/* Rodapé */
-.login-footer {
-    margin-top: 32px;
-    text-align: center;
-    font-size: 14px;
-    color: #94a3b8;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 24px;
-}
-
-.login-footer a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.login-footer a:hover {
-    color: #0d9488;
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+    .item-1, .item-2, .item-3, .item-4, .item-5 {
+        grid-column: span 1;
+        min-height: 180px;
+    }
+    .container {
+        padding: 0 16px;
+    }
+    .benefits-text h2,
+    .market-text h2 {
+        font-size: 26px;
+    }
+    .cards-grid {
+        max-width: 100%;
+    }
+    .section-header h2 {
+        font-size: 26px;
+    }
 }
