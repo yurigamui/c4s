@@ -927,37 +927,6 @@ footer {
         display: flex;
     }
     .bento-grid {
-        grid-template-columns: 1fr;
-    }
-    .item-1, .item-2, .item-3, .item-4, .item-5 {
-        grid-column: span 1;
-        min-height: 250px;
-    }
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-    .hero h1 {
-        font-size: 36px;
-    }
-    .services-section, 
-    .profiles-section, 
-    .cta-section {
-        padding: 60px 20px;
-        border-radius: 20px;
-        margin: 0 10px;
-    }
-    .footer-grid {
-        grid-template-columns: 1fr;
-    }
-    .footer-bottom {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-    }
-}
-
-
-    .bento-grid {
         grid-template-columns: 1fr 1fr;
     }
     .item-1 {
