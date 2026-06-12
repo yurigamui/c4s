@@ -765,6 +765,14 @@ footer {
     border-top: 1px solid rgba(255,255,255,0.1);
 }
 
+/* --- COMPLIANCE GRID (Sobre - Governança) --- */
+.compliance-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 100%;
+}
+
 /* ==========================================================================
    MEDIA QUERIES (RESPONSIVIDADE)
    ========================================================================== */
@@ -911,6 +919,9 @@ footer {
         max-width: 500px;
         margin: 0 auto;
     }
+    .compliance-grid {
+        grid-template-columns: 1fr 1fr;
+    }
     .footer-grid {
         grid-template-columns: 1fr 1fr;
     }
@@ -925,6 +936,9 @@ footer {
     }
     .hamburger-btn {
         display: flex;
+    }
+    .compliance-grid {
+        grid-template-columns: 1fr;
     }
     .bento-grid {
         grid-template-columns: 1fr 1fr;
