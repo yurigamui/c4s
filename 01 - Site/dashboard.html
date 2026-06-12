@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal do Investidor - C4S Securitizadora. Acompanhe seus investimentos em debêntures.">
+    <title>Portal do Investidor - C4S Securitizadora</title>
+    <link rel="icon" href="assets/img/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --c4s-dark-teal: #0e3732;
+            --c4s-teal: #31a39f;
+            --c4s-teal-hover: #268783;
+            --c4s-light-teal: #e6f4f3;
+            --bg-white: #ffffff;
+            --bg-gray: #f8fafc;
+            --bg-darker: #0a2623;
+            --text-dark: #1a202c;
+            --text-gray: #4a5568;
+            --text-light: #ffffff;
+            --text-muted: #a0aec0;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+            --sidebar-w: 260px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+        h1, h2, h3, h4, .font-montserrat { font-family: 'Montserrat', sans-serif; }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            position: fixed;
+            top: 0; left: 0;
+            width: var(--sidebar-w);
+            height: 100vh;
+            background: var(--c4s-dark-teal);
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+        .sidebar-logo {
+            padding: 32px 28px 24px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--c4s-teal);
+            letter-spacing: -1px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px 0;
+            list-style: none;
+        }
+        .sidebar-nav li { margin-bottom: 2px; }
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 28px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            color: var(--text-light);
+            background: rgba(255,255,255,0.05);
+            border-left-color: var(--c4s-teal);
+        }
+        .sidebar-nav a i { width: 20px; text-align: center; font-size: 1rem; }
+        .sidebar-logout {
+            padding: 20px 28px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .sidebar-logout a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .sidebar-logout a:hover { color: var(--error-color); }
+
+        /* ── MAIN AREA ── */
+        .main-area {
+            margin-left: var(--sidebar-w);
+            min-height: 100vh;
+        }
+        .topbar {
+            position: sticky;
+            top: 0;
+            background: var(--bg-white);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            z-index: 50;
+        }
+        .topbar h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+        .topbar-right .avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--c4s-light-teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--c4s-teal);
+            font-weight: 600;
+        }
+        .content { padding: 32px 40px; }
+
+        /* ── SEÇÕES (SPA) ── */
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ── CARDS RESUMO ── */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .summary-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 28px;
+            border-left: 4px solid var(--c4s-teal);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            transition: transform 0.2s;
+        }
+        .summary-card:hover { transform: translateY(-2px); }
+        .summary-card .card-label {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .summary-card .card-label i { color: var(--c4s-teal); }
+        .summary-card .card-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--c4s-dark-teal);
+        }
+
+        /* ── TABELAS ── */
+        .data-table-wrapper {
+            background: var(--bg-white);
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            overflow: hidden;
+        }
+        .data-table-header {
+            padding: 24px 28px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .data-table-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        thead th {
+            background: var(--bg-gray);
+            padding: 14px 20px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-gray);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        tbody td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            color: var(--text-dark);
+        }
+        tbody tr { transition: background 0.15s; cursor: pointer; }
+        tbody tr:hover { background: var(--c4s-light-teal); }
+        tbody tr:last-child td { border-bottom: none; }
+        .value-highlight {
+            font-weight: 600;
+            color: var(--c4s-dark-teal);
+        }
+
+        /* ── BACK BUTTON ── */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--bg-white);
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            margin-bottom: 24px;
+        }
+        .btn-back:hover { border-color: var(--c4s-teal); color: var(--c4s-teal); }
+
+        /* ── DETALHE HEADER ── */
+        .detail-header {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        .detail-header h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--c4s-dark-teal);
+            margin-bottom: 16px;
+        }
+        .detail-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .detail-meta-item {
+            font-size: 0.85rem;
+        }
+        .detail-meta-item .meta-label {
+            color: var(--text-gray);
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        .detail-meta-item .meta-value {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* ── CHARTS ── */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .chart-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        .chart-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        /* ── FORM SECTIONS (Senha, Resgate) ── */
+        .form-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 36px;
+            max-width: 500px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        .form-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--bg-gray);
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            background-color: var(--bg-white);
+            border-color: var(--c4s-teal);
+            box-shadow: 0 0 0 4px rgba(49,163,159,0.1);
+        }
+        .input-password-wrapper { position: relative; }
+        .input-password-wrapper input { padding-right: 50px; }
+        .toggle-password {
+            position: absolute; right: 14px; top: 50%;
+            transform: translateY(-50%);
+            background: none; border: none;
+            color: var(--text-muted); cursor: pointer;
+            font-size: 1rem; transition: color 0.2s;
+        }
+        .toggle-password:hover { color: var(--c4s-teal); }
+
+        .btn-primary {
+            padding: 14px 32px;
+            background-color: var(--c4s-teal);
+            color: var(--text-light);
+            border: none; border-radius: 8px;
+            font-size: 1rem; font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--c4s-dark-teal);
+            box-shadow: 0 4px 16px rgba(14,55,50,0.25);
+            transform: translateY(-1px);
+        }
+        .btn-primary:disabled { background-color: #cbd5e1; cursor: not-allowed; }
+
+        .btn-danger {
+            padding: 12px 24px;
+            background-color: var(--error-color);
+            color: var(--text-light);
+            border: none; border-radius: 8px;
+            font-size: 0.95rem; font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+
+        /* ── FEEDBACK ── */
+        .feedback {
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+        .feedback.visible { display: flex; }
+        .feedback.error { background-color: #fef2f2; color: var(--error-color); border: 1px solid #fecaca; }
+        .feedback.success { background-color: #f0fdf4; color: var(--success-color); border: 1px solid #bbf7d0; }
+
+        /* ── LOADING ── */
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            color: var(--c4s-teal);
+            font-size: 2rem;
+        }
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+        }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.visible { display: flex; }
+        .modal-box {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 36px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        .modal-box h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .btn-outline {
+            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .btn-outline:hover { border-color: var(--c4s-teal); color: var(--c4s-teal); }
+
+        /* ── INFORME ── */
+        .informe-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 36px;
+            max-width: 500px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        .informe-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 18px; height: 18px;
+            accent-color: var(--c4s-teal);
+        }
+
+        /* ── HAMBURGER (MOBILE) ── */
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 18px; left: 18px;
+            z-index: 200;
+            background: var(--c4s-dark-teal);
+            border: none;
+            color: var(--text-light);
+            width: 44px; height: 44px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
+            .main-area { margin-left: 0; }
+            .topbar { padding: 20px 20px 20px 70px; }
+            .content { padding: 24px 20px; }
+            .hamburger { display: flex; align-items: center; justify-content: center; }
+            .charts-grid { grid-template-columns: 1fr; }
+            .summary-cards { grid-template-columns: 1fr; }
+            table { font-size: 0.8rem; }
+            thead th, tbody td { padding: 12px 10px; }
+        }
+
+        /* ── TABLE SCROLL WRAPPER ── */
+        .table-scroll { overflow-x: auto; }
+
+        /* Tipo extrato */
+        .tipo-positivo { color: var(--success-color); font-weight: 600; }
+        .tipo-negativo { color: var(--error-color); font-weight: 600; }
+
+        /* Badge resgate */
+        .badge-resgate {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--c4s-light-teal);
+            color: var(--c4s-dark-teal);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .badge-resgate:hover { background: var(--c4s-teal); color: var(--text-light); }
+    </style>
+</head>
+<body>
+
+    <!-- Hamburger mobile -->
+    <button class="hamburger" id="hamburger-btn" aria-label="Menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">C4S</div>
+        <ul class="sidebar-nav">
+            <li><a href="#" class="active" data-section="section-overview" data-title="Visão Geral"><i class="fa-solid fa-chart-pie"></i> Visão Geral</a></li>
+            <li><a href="#" data-section="section-informe" data-title="Informe de Rendimento"><i class="fa-solid fa-file-invoice-dollar"></i> Informe de Rendimento</a></li>
+            <li><a href="#" data-section="section-senha" data-title="Alterar Senha"><i class="fa-solid fa-key"></i> Alterar Senha</a></li>
+        </ul>
+        <div class="sidebar-logout">
+            <a href="#" id="btn-logout"><i class="fa-solid fa-sign-out-alt"></i> Sair</a>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main-area">
+        <div class="topbar">
+            <h1 id="page-title">Visão Geral</h1>
+            <div class="topbar-right">
+                <span>Olá, Investidor</span>
+                <div class="avatar"><i class="fa-solid fa-user"></i></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- ═══ OVERVIEW ═══ -->
+            <div class="section active" id="section-overview">
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="card-label"><i class="fa-solid fa-wallet"></i> Valor Investido</div>
+                        <div class="card-value" id="val-investido">—</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="card-label"><i class="fa-solid fa-chart-line"></i> Valor Atual</div>
+                        <div class="card-value" id="val-atual">—</div>
+                    </div>
+                </div>
+
+                <div class="data-table-wrapper">
+                    <div class="data-table-header">
+                        <h3><i class="fa-solid fa-layer-group" style="color:var(--c4s-teal);margin-right:8px;"></i>Suas Debêntures</h3>
+                    </div>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Série</th>
+                                    <th>Emissão</th>
+                                    <th>Vencimento</th>
+                                    <th>Qtd</th>
+                                    <th>Taxa</th>
+                                    <th>Valor Aplicado</th>
+                                    <th>Valor Líquido</th>
+                                </tr>
+                            </thead>
+                            <tbody id="debentures-tbody">
+                                <tr><td colspan="7"><div class="loading-spinner"><i class="fas fa-circle-notch fa-spin"></i></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ DEBENTURE DETAIL ═══ -->
+            <div class="section" id="section-debenture-detail">
+                <button class="btn-back" id="btn-back-overview"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+                <div class="detail-header" id="debenture-detail-header"></div>
+                <div class="data-table-wrapper">
+                    <div class="data-table-header">
+                        <h3><i class="fa-solid fa-receipt" style="color:var(--c4s-teal);margin-right:8px;"></i>Cautelas</h3>
+                    </div>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data Emissão</th>
+                                    <th>Data Operação</th>
+                                    <th>Vencimento</th>
+                                    <th>Carência</th>
+                                    <th>Qtd</th>
+                                    <th>Valor Aplicado</th>
+                                    <th>Rendimento</th>
+                                    <th>IR</th>
+                                    <th>Valor Líquido</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cautelas-tbody">
+                                <tr><td colspan="9"><div class="loading-spinner"><i class="fas fa-circle-notch fa-spin"></i></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ CAUTELA DETAIL ═══ -->
+            <div class="section" id="section-cautela-detail">
+                <button class="btn-back" id="btn-back-cautelas"><i class="fa-solid fa-arrow-left"></i> Voltar para Cautelas</button>
+                <div class="detail-header" id="cautela-detail-header"></div>
+
+                <div id="btn-resgate-wrapper" style="margin-bottom:24px;display:none;">
+                    <button class="badge-resgate" id="btn-open-resgate"><i class="fa-solid fa-hand-holding-dollar"></i> Solicitar Resgate Antecipado</button>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h4><i class="fa-solid fa-wallet" style="color:var(--c4s-teal);margin-right:6px;"></i>Carteira</h4>
+                        <canvas id="chart-carteira"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h4><i class="fa-solid fa-chart-line" style="color:var(--c4s-teal);margin-right:6px;"></i>Rentabilidade (%)</h4>
+                        <canvas id="chart-rentabilidade"></canvas>
+                    </div>
+                </div>
+
+                <div class="data-table-wrapper">
+                    <div class="data-table-header">
+                        <h3><i class="fa-solid fa-list-ul" style="color:var(--c4s-teal);margin-right:8px;"></i>Extrato</h3>
+                    </div>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Histórico</th>
+                                    <th>Tipo</th>
+                                    <th>Valor</th>
+                                    <th>Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="extrato-tbody">
+                                <tr><td colspan="5"><div class="loading-spinner"><i class="fas fa-circle-notch fa-spin"></i></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ INFORME DE RENDIMENTO ═══ -->
+            <div class="section" id="section-informe">
+                <div class="informe-card">
+                    <h3><i class="fa-solid fa-file-invoice-dollar" style="color:var(--c4s-teal);margin-right:8px;"></i>Informe de Rendimento</h3>
+                    <div id="informe-feedback" class="feedback"></div>
+                    <div class="form-group">
+                        <label for="sel-ano">Ano-Calendário</label>
+                        <select id="sel-ano">
+                            <option value="">Carregando...</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group" id="ir-retido-group" style="display:none;">
+                        <input type="checkbox" id="chk-ir-retido" checked>
+                        <label for="chk-ir-retido" style="margin:0;cursor:pointer;">Mostrar IR Retido</label>
+                    </div>
+                    <button class="btn-primary" id="btn-gerar-pdf" disabled>
+                        <i class="fa-solid fa-file-pdf"></i> Gerar PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- ═══ ALTERAR SENHA ═══ -->
+            <div class="section" id="section-senha">
+                <div class="form-card">
+                    <h3><i class="fa-solid fa-key" style="color:var(--c4s-teal);margin-right:8px;"></i>Alterar Senha</h3>
+                    <div id="senha-feedback" class="feedback"></div>
+                    <form id="form-trocar-senha">
+                        <div class="form-group">
+                            <label for="senha-atual">Senha Atual</label>
+                            <div class="input-password-wrapper">
+                                <input type="password" id="senha-atual" placeholder="Digite sua senha atual" required>
+                                <button type="button" class="toggle-password" data-target="senha-atual"><i class="fa-solid fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nova-senha">Nova Senha</label>
+                            <div class="input-password-wrapper">
+                                <input type="password" id="nova-senha" placeholder="Crie sua nova senha" required>
+                                <button type="button" class="toggle-password" data-target="nova-senha"><i class="fa-solid fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmar-nova-senha">Confirmar Nova Senha</label>
+                            <div class="input-password-wrapper">
+                                <input type="password" id="confirmar-nova-senha" placeholder="Repita a nova senha" required>
+                                <button type="button" class="toggle-password" data-target="confirmar-nova-senha"><i class="fa-solid fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary" id="btn-trocar-senha">
+                            <i class="fa-solid fa-check"></i> Alterar Senha
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL RESGATE -->
+    <div class="modal-overlay" id="modal-resgate">
+        <div class="modal-box">
+            <h3><i class="fa-solid fa-hand-holding-dollar" style="color:var(--c4s-teal);margin-right:8px;"></i>Solicitar Resgate</h3>
+            <div id="resgate-feedback" class="feedback"></div>
+            <div class="form-group">
+                <label for="valor-resgate">Valor Solicitado (R$)</label>
+                <input type="text" id="valor-resgate" placeholder="Ex: 1.000,00" required>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-outline" id="btn-cancel-resgate">Cancelar</button>
+                <button class="btn-primary" id="btn-confirm-resgate"><i class="fa-solid fa-check"></i> Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // ── STATE ──
+        const state = {
+            idDebenturista: sessionStorage.getItem('c4s_id_debenturista'),
+            idLogin: sessionStorage.getItem('c4s_id_login'),
+            appConfig: null,
+            debentures: [],
+            currentDebenture: null,
+            currentCautela: null,
+            chartCarteira: null,
+            chartRentabilidade: null
+        };
+
+        // Guard: redirecionar se não logado
+        if (!state.idDebenturista || !state.idLogin) {
+            window.location.href = '/login.html';
+            return;
+        }
+
+        // ── API HELPERS ──
+        async function apiGet(endpoint, params = {}) {
+            params.idDebenturista = state.idDebenturista;
+            params.idLogin = state.idLogin;
+            const qs = new URLSearchParams(params).toString();
+            try {
+                const res = await fetch(`/api/${endpoint}?${qs}`);
+                const data = await res.json();
+                if (data.status === 'LOGOUT') { doLogout(); return null; }
+                return data;
+            } catch (e) {
+                return { status: 'ERROR', mensagem: 'Falha de conexão com o servidor.' };
+            }
+        }
+
+        async function apiPost(endpoint, body) {
+            try {
+                const res = await fetch(`/api/${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                const data = await res.json();
+                if (data.status === 'LOGOUT') { doLogout(); return null; }
+                return data;
+            } catch (e) {
+                return { status: 'ERROR', mensagem: 'Falha de conexão com o servidor.' };
+            }
+        }
+
+        function doLogout() {
+            sessionStorage.clear();
+            window.location.href = '/login.html';
+        }
+
+        // ── NAVIGATION ──
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+        const sections = document.querySelectorAll('.section');
+        const pageTitle = document.getElementById('page-title');
+
+        function showSection(sectionId, title) {
+            sections.forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            pageTitle.textContent = title || 'Portal';
+            navLinks.forEach(a => a.classList.remove('active'));
+            const navLink = document.querySelector(`[data-section="${sectionId}"]`);
+            if (navLink) navLink.classList.add('active');
+            // Close mobile sidebar
+            document.getElementById('sidebar').classList.remove('open');
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = link.dataset.section;
+                const title = link.dataset.title;
+                showSection(section, title);
+
+                // Lazy load section data
+                if (section === 'section-informe') loadInformeAnos();
+            });
+        });
+
+        // Hamburger
+        document.getElementById('hamburger-btn').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+
+        // Logout
+        document.getElementById('btn-logout').addEventListener('click', (e) => {
+            e.preventDefault();
+            doLogout();
+        });
+
+        // Back buttons
+        document.getElementById('btn-back-overview').addEventListener('click', () => showSection('section-overview', 'Visão Geral'));
+        document.getElementById('btn-back-cautelas').addEventListener('click', () => {
+            showSection('section-debenture-detail', `Debênture – Série ${state.currentDebenture?.serie || ''}`);
+        });
+
+        // ── OVERVIEW: LOAD DEBENTURES ──
+        async function loadOverview() {
+            const data = await apiGet('debentures');
+            if (!data || data.status !== 'OK') return;
+
+            const dd = data.dadosDebentures;
+            document.getElementById('val-investido').textContent = `R$ ${dd.valorInvestido}`;
+            document.getElementById('val-atual').textContent = `R$ ${dd.valorAtual}`;
+
+            state.debentures = dd.debentures || [];
+            renderDebentures();
+        }
+
+        function renderDebentures() {
+            const tbody = document.getElementById('debentures-tbody');
+            if (state.debentures.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-gray);">Nenhuma debênture encontrada.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = state.debentures.map(d => `
+                <tr data-id="${d.idDebenture}" onclick="window.__openDebenture(${d.idDebenture})">
+                    <td><strong>Série ${d.serie}</strong></td>
+                    <td>${d.dataEmissaoDebenture}</td>
+                    <td>${d.dataVencimentoDebenture}</td>
+                    <td>${d.quantidade}</td>
+                    <td>${d.descricaoTaxa}</td>
+                    <td>R$ ${d.valorAplicado}</td>
+                    <td class="value-highlight">R$ ${d.valorLiquido}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Global handler for row clicks
+        window.__openDebenture = async function(idDebenture) {
+            state.currentDebenture = state.debentures.find(d => d.idDebenture === idDebenture);
+            showSection('section-debenture-detail', `Debênture – Série ${state.currentDebenture?.serie || ''}`);
+
+            // Render header
+            const dh = document.getElementById('debenture-detail-header');
+            const d = state.currentDebenture;
+            dh.innerHTML = `
+                <h3>Debênture – Série ${d.serie} | Emissão ${d.numEmissao}</h3>
+                <div class="detail-meta">
+                    <div class="detail-meta-item"><div class="meta-label">Emissão</div><div class="meta-value">${d.dataEmissaoDebenture}</div></div>
+                    <div class="detail-meta-item"><div class="meta-label">Vencimento</div><div class="meta-value">${d.dataVencimentoDebenture}</div></div>
+                    <div class="detail-meta-item"><div class="meta-label">Quantidade</div><div class="meta-value">${d.quantidade}</div></div>
+                    <div class="detail-meta-item"><div class="meta-label">Taxa</div><div class="meta-value">${d.descricaoTaxa}</div></div>
+                    <div class="detail-meta-item"><div class="meta-label">Valor Aplicado</div><div class="meta-value">R$ ${d.valorAplicado}</div></div>
+                    <div class="detail-meta-item"><div class="meta-label">Valor Líquido</div><div class="meta-value" style="color:var(--c4s-teal);">R$ ${d.valorLiquido}</div></div>
+                </div>
+            `;
+
+            // Load cautelas
+            const cautelasBody = document.getElementById('cautelas-tbody');
+            cautelasBody.innerHTML = '<tr><td colspan="9"><div class="loading-spinner"><i class="fas fa-circle-notch fa-spin"></i></div></td></tr>';
+
+            const data = await apiGet('cautelas', { idDebenture: idDebenture });
+            if (!data || data.status !== 'OK') {
+                cautelasBody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-gray);">Erro ao carregar cautelas.</td></tr>';
+                return;
+            }
+
+            const cautelas = data.dadosCautelas || [];
+            if (cautelas.length === 0) {
+                cautelasBody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-gray);">Nenhuma cautela encontrada.</td></tr>';
+                return;
+            }
+            cautelasBody.innerHTML = cautelas.map(c => `
+                <tr onclick="window.__openCautela(${c.idCautela}, ${JSON.stringify(c).replace(/"/g, '&quot;')})">
+                    <td>${c.dataEmissao}</td>
+                    <td>${c.dataOperacao}</td>
+                    <td>${c.dataVencimento}</td>
+                    <td>${c.dataCarencia}</td>
+                    <td>${c.quantidadeDebentures}</td>
+                    <td>R$ ${c.ValorAplicado}</td>
+                    <td>R$ ${c.ValorRendimento}</td>
+                    <td>R$ ${c.ValorIR}</td>
+                    <td class="value-highlight">R$ ${c.ValorLiquido}</td>
+                </tr>
+            `).join('');
+        };
+
+        // ── CAUTELA DETAIL ──
+        window.__openCautela = async function(idCautela, cautelaData) {
+            state.currentCautela = { idCautela, ...cautelaData };
+            showSection('section-cautela-detail', `Cautela #${idCautela}`);
+
+            // Header
+            const ch = document.getElementById('cautela-detail-header');
+            const c = state.currentCautela;
+            ch.innerHTML = `
+                <h3>Cautela #${c.idCautela}</h3>
+                <div class="detail-meta">
+                    <div class="detail-meta-item"><div class="meta-label">Emissão</div><div class="meta-value">${c.dataEmissao || '—'}</div></div>
+                    <div class="detail-meta-item"><div class="meta-label">Operação</div><div class="meta-value">${c.dataOperacao || '—'}</div></div>
+                    <div class="detail-meta-item"><div class="meta-label">Vencimento</div><div class="meta-value">${c.dataVencimento || '—'}</div></div>
+                    <div class="detail-meta-item"><div class="meta-label">Carência</div><div class="meta-value">${c.dataCarencia || '—'}</div></div>
+                    <div class="detail-meta-item"><div class="meta-label">Valor Aplicado</div><div class="meta-value">R$ ${c.ValorAplicado || '—'}</div></div>
+                    <div class="detail-meta-item"><div class="meta-label">Valor Líquido</div><div class="meta-value" style="color:var(--c4s-teal);">R$ ${c.ValorLiquido || '—'}</div></div>
+                </div>
+            `;
+
+            // Resgate button
+            const resgateWrapper = document.getElementById('btn-resgate-wrapper');
+            if (state.appConfig && state.appConfig.permitirResgateAntecipado === 1) {
+                resgateWrapper.style.display = 'block';
+            } else {
+                resgateWrapper.style.display = 'none';
+            }
+
+            // Load data in parallel
+            loadExtrato(idCautela);
+            loadCharts(idCautela);
+        };
+
+        async function loadExtrato(idCautela) {
+            const tbody = document.getElementById('extrato-tbody');
+            tbody.innerHTML = '<tr><td colspan="5"><div class="loading-spinner"><i class="fas fa-circle-notch fa-spin"></i></div></td></tr>';
+
+            const data = await apiGet('cautela-extrato', { idCautela });
+            if (!data || data.status !== 'OK') {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-gray);">Erro ao carregar extrato.</td></tr>';
+                return;
+            }
+            const extrato = data.dadosExtrato || [];
+            if (extrato.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-gray);">Nenhum lançamento encontrado.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = extrato.map(e => `
+                <tr style="cursor:default;">
+                    <td>${e.data}</td>
+                    <td>${e.historico}</td>
+                    <td class="${e.tipo === '+' ? 'tipo-positivo' : 'tipo-negativo'}">${e.tipo}</td>
+                    <td>R$ ${e.valor}</td>
+                    <td class="value-highlight">R$ ${e.saldo}</td>
+                </tr>
+            `).join('');
+        }
+
+        async function loadCharts(idCautela) {
+            // Destroy previous charts
+            if (state.chartCarteira) { state.chartCarteira.destroy(); state.chartCarteira = null; }
+            if (state.chartRentabilidade) { state.chartRentabilidade.destroy(); state.chartRentabilidade = null; }
+
+            const [carteiraData, rentData] = await Promise.all([
+                apiGet('cautela-grafico-carteira', { idCautela }),
+                apiGet('cautela-grafico-rentabilidade', { idCautela })
+            ]);
+
+            // Carteira chart
+            if (carteiraData && carteiraData.status === 'OK' && carteiraData.dadosGrafico) {
+                const labels = carteiraData.dadosGrafico.map(g => g.nomeMes);
+                const values = carteiraData.dadosGrafico.map(g => parseBRFloat(g.valor));
+                state.chartCarteira = new Chart(document.getElementById('chart-carteira'), {
+                    type: 'bar',
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: 'R$',
+                            data: values,
+                            backgroundColor: 'rgba(49,163,159,0.6)',
+                            borderColor: '#31a39f',
+                            borderWidth: 1,
+                            borderRadius: 6
+                        }]
+                    },
+                    options: chartOptions('R$')
+                });
+            }
+
+            // Rentabilidade chart
+            if (rentData && rentData.status === 'OK' && rentData.dadosGrafico) {
+                const labels = rentData.dadosGrafico.map(g => g.nomeMes);
+                const values = rentData.dadosGrafico.map(g => parseBRFloat(g.valor));
+                state.chartRentabilidade = new Chart(document.getElementById('chart-rentabilidade'), {
+                    type: 'line',
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: '%',
+                            data: values,
+                            borderColor: '#31a39f',
+                            backgroundColor: 'rgba(49,163,159,0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#31a39f',
+                            pointRadius: 4
+                        }]
+                    },
+                    options: chartOptions('%')
+                });
+            }
+        }
+
+        function chartOptions(suffix) {
+            return {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => `${suffix === 'R$' ? 'R$ ' : ''}${ctx.raw.toLocaleString('pt-BR', {minimumFractionDigits: 2})}${suffix === '%' ? '%' : ''}`
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#f0f0f0' },
+                        ticks: { font: { size: 11 } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { size: 11 } }
+                    }
+                }
+            };
+        }
+
+        function parseBRFloat(val) {
+            if (!val) return 0;
+            return parseFloat(val.replace(/\./g, '').replace(',', '.'));
+        }
+
+        // ── RESGATE MODAL ──
+        const modalResgate = document.getElementById('modal-resgate');
+        document.getElementById('btn-open-resgate').addEventListener('click', () => {
+            modalResgate.classList.add('visible');
+            document.getElementById('valor-resgate').value = '';
+            showResgateFeedback('', '');
+        });
+        document.getElementById('btn-cancel-resgate').addEventListener('click', () => {
+            modalResgate.classList.remove('visible');
+        });
+        document.getElementById('btn-confirm-resgate').addEventListener('click', async () => {
+            const valor = document.getElementById('valor-resgate').value.trim();
+            if (!valor) {
+                showResgateFeedback('Informe o valor desejado.', 'error');
+                return;
+            }
+            const btn = document.getElementById('btn-confirm-resgate');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Enviando...';
+
+            const data = await apiPost('solicitacao-resgate', {
+                idDebenturista: parseInt(state.idDebenturista),
+                idLogin: parseInt(state.idLogin),
+                idCautela: state.currentCautela.idCautela,
+                valorSolicitado: valor
+            });
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Confirmar';
+
+            if (data && data.status === 'OK') {
+                showResgateFeedback(data.mensagem || 'Solicitação enviada com sucesso!', 'success');
+                setTimeout(() => modalResgate.classList.remove('visible'), 2000);
+            } else {
+                showResgateFeedback(data?.mensagem || 'Erro ao enviar solicitação.', 'error');
+            }
+        });
+
+        function showResgateFeedback(msg, type) {
+            const fb = document.getElementById('resgate-feedback');
+            if (!msg) { fb.className = 'feedback'; fb.textContent = ''; return; }
+            fb.textContent = msg;
+            fb.className = `feedback ${type} visible`;
+        }
+
+        // ── INFORME DE RENDIMENTO ──
+        let informeLoaded = false;
+        let informeMostrarIR = 0;
+
+        async function loadInformeAnos() {
+            if (informeLoaded) return;
+            const data = await apiGet('informe-rendimento-ano');
+            if (!data || data.status !== 'OK') return;
+
+            informeLoaded = true;
+            informeMostrarIR = data.mostrarIRRetido || 0;
+
+            const sel = document.getElementById('sel-ano');
+            const anos = data.listaAnoCalendario || [];
+            sel.innerHTML = anos.map(a => `<option value="${a}">${a}</option>`).join('');
+            document.getElementById('btn-gerar-pdf').disabled = anos.length === 0;
+
+            if (informeMostrarIR === 1) {
+                document.getElementById('ir-retido-group').style.display = 'flex';
+            }
+        }
+
+        document.getElementById('btn-gerar-pdf').addEventListener('click', async () => {
+            const ano = document.getElementById('sel-ano').value;
+            if (!ano) return;
+
+            const btn = document.getElementById('btn-gerar-pdf');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Gerando...';
+
+            const params = { anoCalendario: ano };
+            if (informeMostrarIR === 1) {
+                params.mostrarIRRetido = document.getElementById('chk-ir-retido').checked ? 1 : 0;
+            }
+
+            const data = await apiGet('informe-rendimento-pdf', params);
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Gerar PDF';
+
+            if (data && data.status === 'OK' && data.conteudoArquivo) {
+                // Decode base64 and trigger download
+                const byteChars = atob(data.conteudoArquivo);
+                const byteNumbers = new Array(byteChars.length);
+                for (let i = 0; i < byteChars.length; i++) {
+                    byteNumbers[i] = byteChars.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `informe_rendimento_${ano}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showInformeFeedback('PDF gerado com sucesso!', 'success');
+            } else {
+                showInformeFeedback(data?.mensagem || 'Erro ao gerar o PDF.', 'error');
+            }
+        });
+
+        function showInformeFeedback(msg, type) {
+            const fb = document.getElementById('informe-feedback');
+            if (!msg) { fb.className = 'feedback'; fb.textContent = ''; return; }
+            fb.textContent = msg;
+            fb.className = `feedback ${type} visible`;
+            setTimeout(() => { fb.className = 'feedback'; }, 4000);
+        }
+
+        // ── ALTERAR SENHA ──
+        document.querySelectorAll('.toggle-password').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = document.getElementById(btn.dataset.target);
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                btn.querySelector('i').className = isPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
+            });
+        });
+
+        document.getElementById('form-trocar-senha').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fb = document.getElementById('senha-feedback');
+            fb.className = 'feedback';
+
+            const senhaAtual = document.getElementById('senha-atual').value;
+            const novaSenha = document.getElementById('nova-senha').value;
+            const confirmar = document.getElementById('confirmar-nova-senha').value;
+
+            if (!senhaAtual || !novaSenha || !confirmar) {
+                showSenhaFeedback('Preencha todos os campos.', 'error');
+                return;
+            }
+            if (novaSenha !== confirmar) {
+                showSenhaFeedback('As senhas não coincidem.', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('btn-trocar-senha');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Alterando...';
+
+            const data = await apiPost('trocar-senha', {
+                idDebenturista: parseInt(state.idDebenturista),
+                idLogin: parseInt(state.idLogin),
+                senhaAtual,
+                novaSenha
+            });
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Alterar Senha';
+
+            if (data && data.status === 'OK') {
+                showSenhaFeedback(data.mensagem || 'Senha alterada com sucesso!', 'success');
+                document.getElementById('form-trocar-senha').reset();
+            } else {
+                showSenhaFeedback(data?.mensagem || 'Erro ao alterar a senha.', 'error');
+            }
+        });
+
+        function showSenhaFeedback(msg, type) {
+            const fb = document.getElementById('senha-feedback');
+            if (!msg) { fb.className = 'feedback'; fb.textContent = ''; return; }
+            fb.textContent = msg;
+            fb.className = `feedback ${type} visible`;
+        }
+
+        // ── INIT: Load config & overview ──
+        async function init() {
+            const config = await apiGet('configuracao-app');
+            if (config && config.status === 'OK') {
+                state.appConfig = config;
+            }
+            loadOverview();
+        }
+
+        init();
+    });
+    </script>
+</body>
+</html>

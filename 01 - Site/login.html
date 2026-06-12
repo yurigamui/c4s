@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Acesse o Portal do Investidor C4S Securitizadora. Acompanhe seus investimentos em debêntures com segurança e transparência.">
+    <title>Portal do Investidor - C4S Securitizadora</title>
+    <link rel="icon" href="assets/img/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --c4s-dark-teal: #0e3732;
+            --c4s-teal: #31a39f;
+            --c4s-teal-hover: #268783;
+            --c4s-light-teal: #e6f4f3;
+            --bg-white: #ffffff;
+            --bg-gray: #f8fafc;
+            --text-dark: #1a202c;
+            --text-gray: #4a5568;
+            --text-light: #ffffff;
+            --text-muted: #a0aec0;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        h1, h2, h3, h4, .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* ── Lado Esquerdo: Branding ── */
+        .brand-section {
+            flex: 1;
+            background: linear-gradient(160deg, var(--c4s-dark-teal) 0%, #145c54 60%, var(--c4s-teal) 100%);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-section::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.04) 10%, transparent 10%),
+                        radial-gradient(circle, rgba(255,255,255,0.04) 10%, transparent 10%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            pointer-events: none;
+        }
+
+        .brand-logo { z-index: 1; position: relative; }
+        .brand-logo h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--c4s-teal);
+        }
+
+        .brand-content {
+            z-index: 1;
+            position: relative;
+            max-width: 450px;
+        }
+        .brand-content h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .brand-content p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.75);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .brand-footer {
+            z-index: 1;
+            position: relative;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ── Lado Direito: Formulário ── */
+        .form-section {
+            flex: 1;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 80px;
+            background: var(--bg-white);
+        }
+
+        .form-header { margin-bottom: 36px; }
+        .form-header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        .form-header p {
+            font-size: 1rem;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        /* Feedback */
+        .feedback-container {
+            display: none;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            align-items: center;
+            gap: 10px;
+        }
+        .feedback-container.visible {
+            display: flex;
+        }
+        .feedback-container.error {
+            background-color: #fef2f2;
+            color: var(--error-color);
+            border: 1px solid #fecaca;
+        }
+        .feedback-container.success {
+            background-color: #f0fdf4;
+            color: var(--success-color);
+            border: 1px solid #bbf7d0;
+        }
+        .feedback-container.info {
+            background-color: var(--c4s-light-teal);
+            color: var(--c4s-dark-teal);
+            border: 1px solid var(--c4s-teal);
+        }
+
+        /* Campos */
+        .form-group { margin-bottom: 24px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+        .form-group input {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--bg-gray);
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+        .form-group input::placeholder { color: var(--text-muted); }
+        .form-group input:focus {
+            outline: none;
+            background-color: var(--bg-white);
+            border-color: var(--c4s-teal);
+            box-shadow: 0 0 0 4px rgba(49,163,159,0.1);
+        }
+
+        /* Input com ícone de olho */
+        .input-password-wrapper {
+            position: relative;
+        }
+        .input-password-wrapper input {
+            padding-right: 50px;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .toggle-password:hover {
+            color: var(--c4s-teal);
+        }
+
+        /* Botão */
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--c4s-teal);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-submit:hover:not(:disabled) {
+            background-color: var(--c4s-dark-teal);
+            box-shadow: 0 4px 16px rgba(14,55,50,0.25);
+            transform: translateY(-1px);
+        }
+        .btn-submit:disabled {
+            background-color: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Links */
+        .form-links {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .form-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .form-links a:hover {
+            color: var(--c4s-teal);
+        }
+
+        /* Responsivo */
+        @media (max-width: 900px) {
+            .brand-section { display: none; }
+            .form-section {
+                max-width: 100%;
+                padding: 40px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Lado Esquerdo: Identidade Visual C4S -->
+    <div class="brand-section">
+        <div class="brand-logo">
+            <h2>C4S</h2>
+        </div>
+        <div class="brand-content">
+            <h1>Gestão e Solidez<br>para o seu portfólio.</h1>
+            <p>Acesse o portal exclusivo para debenturistas e acompanhe seus investimentos com total segurança e transparência.</p>
+        </div>
+        <div class="brand-footer">
+            &copy; 2026 C4S Securitizadora. Todos os direitos reservados.
+        </div>
+    </div>
+
+    <!-- Lado Direito: Formulário -->
+    <div class="form-section">
+        <div class="form-header">
+            <h2>Acesse sua conta</h2>
+            <p>Entre com suas credenciais para acessar o portal do investidor.</p>
+        </div>
+
+        <div id="feedback-box" class="feedback-container">
+            <i id="feedback-icon" class="fa-solid fa-circle-info"></i>
+            <span id="feedback-text"></span>
+        </div>
+
+        <form id="form-login">
+            <div class="form-group">
+                <label for="documento">E-mail ou Documento</label>
+                <input type="text" id="documento" placeholder="exemplo@email.com" required autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <div class="input-password-wrapper">
+                    <input type="password" id="senha" placeholder="Digite sua senha" required autocomplete="current-password">
+                    <button type="button" class="toggle-password" id="toggle-senha" aria-label="Mostrar senha">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" id="btn-submit" class="btn-submit">
+                Acessar Portal <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </button>
+        </form>
+
+        <div class="form-links">
+            <a href="/esqueci-senha.html">
+                <i class="fa-solid fa-lock"></i> Esqueci minha senha
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('form-login');
+            const feedbackBox = document.getElementById('feedback-box');
+            const feedbackIcon = document.getElementById('feedback-icon');
+            const feedbackText = document.getElementById('feedback-text');
+            const submitBtn = document.getElementById('btn-submit');
+            const docInput = document.getElementById('documento');
+            const senhaInput = document.getElementById('senha');
+            const toggleSenha = document.getElementById('toggle-senha');
+
+            // Toggle de visibilidade da senha
+            toggleSenha.addEventListener('click', () => {
+                const isPassword = senhaInput.type === 'password';
+                senhaInput.type = isPassword ? 'text' : 'password';
+                toggleSenha.querySelector('i').className = isPassword
+                    ? 'fa-solid fa-eye-slash'
+                    : 'fa-solid fa-eye';
+            });
+
+            // Verificar parâmetros de URL (retorno de ativação/confirmação)
+            const urlParams = new URLSearchParams(window.location.search);
+            const msg = urlParams.get('msg');
+            if (msg === 'ativado') {
+                showFeedback('Conta ativada com sucesso! Faça login para continuar.', 'success');
+            } else if (msg === 'confirmado') {
+                showFeedback('Cadastro confirmado! Faça login para continuar.', 'success');
+            }
+
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                showFeedback('', '');
+
+                const username = docInput.value.trim();
+                const password = senhaInput.value;
+
+                if (!username || !password) {
+                    showFeedback('Preencha todos os campos obrigatórios.', 'error');
+                    return;
+                }
+
+                setLoadingState(true);
+
+                try {
+                    const response = await fetch('/api/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+
+                    const data = await response.json();
+
+                    switch (data.status) {
+                        case 'OK':
+                            showFeedback('Autenticado com sucesso. Carregando portal...', 'success');
+                            sessionStorage.setItem('c4s_id_debenturista', data.idDebenturista);
+                            sessionStorage.setItem('c4s_id_login', data.idLogin);
+                            senhaInput.value = '';
+                            setTimeout(() => {
+                                window.location.href = '/dashboard.html';
+                            }, 1200);
+                            break;
+
+                        case 'INATIVO':
+                            showFeedback(data.mensagem || 'Sua conta precisa ser ativada. Redirecionando...', 'info');
+                            sessionStorage.setItem('c4s_login_pendente', username);
+                            senhaInput.value = '';
+                            setTimeout(() => {
+                                window.location.href = '/ativar-usuario.html';
+                            }, 2000);
+                            break;
+
+                        case 'NAO_CONFIRMADO':
+                            showFeedback(data.mensagem || 'Cadastro pendente de confirmação. Redirecionando...', 'info');
+                            sessionStorage.setItem('c4s_login_pendente', username);
+                            senhaInput.value = '';
+                            setTimeout(() => {
+                                window.location.href = '/confirmar-usuario.html';
+                            }, 2000);
+                            break;
+
+                        case 'ERROR':
+                            showFeedback('Dados de acesso incorretos. Tente novamente.', 'error');
+                            senhaInput.value = '';
+                            senhaInput.focus();
+                            setLoadingState(false);
+                            break;
+
+                        default:
+                            showFeedback('Resposta inesperada do servidor. Contate o suporte.', 'error');
+                            setLoadingState(false);
+                    }
+                } catch (error) {
+                    showFeedback('Falha de conexão com o servidor. Tente mais tarde.', 'error');
+                    setLoadingState(false);
+                }
+            });
+
+            function showFeedback(message, type) {
+                if (!message) {
+                    feedbackBox.className = 'feedback-container';
+                    feedbackText.textContent = '';
+                    return;
+                }
+                feedbackText.textContent = message;
+                const iconMap = {
+                    error: 'fa-solid fa-circle-exclamation',
+                    success: 'fa-solid fa-circle-check',
+                    info: 'fa-solid fa-circle-info'
+                };
+                feedbackIcon.className = iconMap[type] || 'fa-solid fa-circle-info';
+                feedbackBox.className = `feedback-container ${type} visible`;
+            }
+
+            function setLoadingState(isLoading) {
+                if (isLoading) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Autenticando...';
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Acessar Portal <i class="fa-solid fa-arrow-right-to-bracket"></i>';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

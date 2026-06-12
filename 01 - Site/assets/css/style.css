@@ -1,0 +1,1068 @@
+/* ==========================================================================
+   C4S SECURITIZADORA - STYLE GUIDE & CORE CSS
+   ========================================================================== */
+
+/* --- PALETA DE CORES --- */
+:root {
+    --c4s-dark-teal: #0e3732;   /* Cor principal escura (fundo e textos de destaque) */
+    --c4s-teal: #31a39f;        /* Cor da logo (detalhes, botões, ícones) */
+    --c4s-teal-hover: #268783;
+    --c4s-light-teal: #e6f4f3;   /* Fundo de destaque claro */
+    
+    --bg-white: #ffffff;
+    --bg-gray: #f8fafc;
+    --bg-darker: #0a2623;       /* Fundo do Footer */
+    
+    --text-dark: #1a202c;
+    --text-gray: #4a5568;
+    --text-light: #ffffff;
+    --text-muted: #a0aec0;
+}
+
+/* --- RESET & ESTRUTURA BÁSICA --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--text-dark);
+    background-color: var(--bg-white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* --- COMPONENTES: BOTÕES --- */
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-teal {
+    background-color: var(--c4s-teal);
+    color: var(--text-light);
+    border: 2px solid var(--c4s-teal);
+}
+
+.btn-teal:hover {
+    background-color: var(--c4s-teal-hover);
+    border-color: var(--c4s-teal-hover);
+}
+
+/* Botão Vazado para fundos CLAROS (ex: Hero Section, Header) */
+.btn-outline-dark {
+    background-color: transparent;
+    color: var(--c4s-dark-teal);
+    border: 2px solid var(--c4s-teal);
+}
+
+.btn-outline-dark:hover {
+    background-color: var(--c4s-teal);
+    color: var(--text-light);
+}
+
+/* Botão Vazado para fundos ESCUROS (ex: Seção de Perfis/Planos) */
+.btn-outline-light {
+    background-color: transparent;
+    color: var(--text-light);
+    border: 2px solid var(--c4s-teal);
+}
+
+.btn-outline-light:hover {
+    background-color: var(--c4s-teal);
+    color: var(--text-light);
+}
+
+.btn-light {
+    background-color: var(--c4s-light-teal);
+    color: var(--c4s-dark-teal);
+    border: none;
+}
+
+.btn-light:hover {
+    background-color: var(--c4s-teal);
+    color: var(--text-light);
+}
+
+/* --- ESTRUTURA: HEADER (CABEÇALHO) --- */
+header {
+    padding: 20px 0;
+    background-color: var(--bg-white);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--c4s-teal);
+    letter-spacing: -1px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+}
+
+nav ul li a {
+    color: var(--text-gray);
+    font-weight: 500;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--c4s-teal);
+}
+
+nav ul li a.active {
+    font-weight: 700;
+}
+
+/* --- SEÇÃO 1: HERO & TRUST INDICATOR --- */
+.hero {
+    text-align: center;
+    padding: 100px 0 80px;
+    background-color: var(--bg-white);
+}
+
+.hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--c4s-dark-teal);
+    max-width: 850px;
+    margin: 0 auto 24px;
+    line-height: 1.15;
+    letter-spacing: -1px;
+}
+
+.hero p.subtitle {
+    font-size: 18px;
+    color: var(--text-gray);
+    max-width: 650px;
+    margin: 0 auto 40px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 50px;
+}
+
+.trust-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-gray);
+    margin-bottom: 80px;
+}
+
+.stars {
+    color: var(--c4s-teal);
+    letter-spacing: 2px;
+}
+
+/* --- GRID DE DESIGN: BENTO GRID --- */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    margin-bottom: 60px;
+    text-align: left;
+}
+
+.bento-item {
+    border-radius: 20px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(14,55,50,0.05);
+    transition: transform 0.3s ease;
+    min-height: 320px;
+}
+
+.bento-item:hover {
+    transform: translateY(-5px);
+}
+
+.item-1 {
+    grid-column: span 1;
+    background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80') center/cover;
+    padding: 0;
+}
+
+.item-2 {
+    grid-column: span 1;
+    background-color: var(--c4s-dark-teal);
+    color: var(--text-light);
+    justify-content: center;
+    text-align: center;
+}
+
+.item-2 h3 {
+    font-size: 28px;
+    color: var(--c4s-teal);
+    margin-bottom: 12px;
+}
+
+.item-2 p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+}
+
+.item-3 {
+    grid-column: span 1;
+    background-color: var(--bg-white);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid var(--c4s-light-teal);
+}
+
+.item-3 .icon-box {
+    background: var(--c4s-light-teal);
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: var(--c4s-teal);
+    font-size: 24px;
+}
+
+.item-3 h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: var(--c4s-dark-teal);
+}
+
+.item-3 p {
+    font-size: 13px;
+    color: var(--text-gray);
+}
+
+.item-4 {
+    grid-column: span 1;
+    background-color: var(--bg-gray);
+    border: 1px solid #e2e8f0;
+}
+
+.item-4 h3 {
+    font-size: 22px;
+    color: var(--c4s-dark-teal);
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.item-4 p {
+    font-size: 14px;
+    color: var(--text-gray);
+    margin-top: auto;
+}
+
+.item-5 {
+    grid-column: span 1;
+    background-color: var(--c4s-dark-teal);
+    color: var(--text-light);
+}
+
+.item-5 h3 {
+    font-size: 20px;
+    line-height: 1.4;
+    margin-top: auto;
+}
+
+.item-5 i {
+    font-size: 28px;
+    color: var(--c4s-teal);
+    margin-bottom: auto;
+}
+
+/* --- SEÇÃO 2: SERVIÇOS / PILARES (GRID BLOCKS) --- */
+.services-section {
+    background-color: var(--c4s-dark-teal);
+    color: var(--text-light);
+    padding: 100px 0;
+    border-radius: 40px;
+    margin: 0 20px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-header h2 {
+    font-size: 40px;
+    margin-bottom: 16px;
+    max-width: 600px;
+    margin: 0 auto 16px;
+    line-height: 1.2;
+}
+
+.section-header p {
+    color: rgba(255,255,255,0.7);
+    font-size: 16px;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.service-card {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px 32px;
+    border-radius: 20px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: var(--c4s-teal);
+    transform: translateY(-5px);
+}
+
+.service-icon {
+    font-size: 28px;
+    color: var(--text-light);
+    margin-bottom: 24px;
+}
+
+.service-card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--text-light);
+}
+
+.service-card p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+}
+
+.arrow-up {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    color: rgba(255,255,255,0.3);
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.service-card:hover .arrow-up {
+    color: var(--c4s-teal);
+}
+
+/* --- SEÇÃO 3: LISTA DE BENEFÍCIOS COM INFOGRÁFICO --- */
+.benefits-section {
+    padding: 100px 0;
+    background-color: var(--bg-white);
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.graphic-box {
+    background-color: var(--bg-gray);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floating-card {
+    background: #fff;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(14, 55, 50, 0.08);
+    width: 85%;
+    position: relative;
+    z-index: 2;
+}
+
+.floating-card-small {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(14, 55, 50, 0.1);
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    z-index: 3;
+    width: 60%;
+}
+
+.graphic-bar {
+    height: 10px;
+    border-radius: 5px;
+    margin-bottom: 16px;
+    background: var(--bg-gray);
+}
+
+.graphic-bar.fill-teal {
+    background: var(--c4s-teal);
+    width: 75%;
+}
+
+.graphic-bar.fill-dark {
+    background: var(--c4s-dark-teal);
+    width: 45%;
+}
+
+.benefits-text h2 {
+    font-size: 38px;
+    color: var(--c4s-dark-teal);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.benefits-text > p {
+    color: var(--text-gray);
+    margin-bottom: 40px;
+    font-size: 16px;
+}
+
+.benefit-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.benefit-icon {
+    color: var(--c4s-teal);
+    font-size: 24px;
+    margin-top: 2px;
+}
+
+.benefit-item h4 {
+    color: var(--c4s-dark-teal);
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.benefit-item p {
+    color: var(--text-gray);
+    font-size: 15px;
+}
+
+/* --- SEÇÃO 4: PLANOS / PERFIS --- */
+.profiles-section {
+    background-color: var(--c4s-dark-teal);
+    padding: 100px 0;
+    color: var(--text-light);
+    border-radius: 40px;
+    margin: 0 20px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.profile-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 48px;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--c4s-teal);
+}
+
+.profile-card h3 {
+    font-size: 26px;
+    margin-bottom: 16px;
+    color: var(--text-light);
+}
+
+.profile-card > p {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 30px;
+    font-size: 15px;
+    min-height: 66px;
+}
+
+.price-mockup {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--c4s-teal);
+    margin-bottom: 30px;
+    font-family: 'Montserrat';
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.feature-list {
+    list-style: none;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 30px;
+}
+
+.feature-list li {
+    margin-bottom: 16px;
+    font-size: 15px;
+    color: rgba(255,255,255,0.9);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+}
+
+.feature-list li i {
+    color: var(--c4s-teal);
+    margin-top: 4px;
+}
+
+/* Estilos do Cartão Largo (Corporate/Expansão) */
+.profile-card-wide {
+    background: linear-gradient(135deg, rgba(49,163,159,0.1) 0%, rgba(14,55,50,0.5) 100%);
+    border: 1px solid var(--c4s-teal);
+    border-radius: 20px;
+    padding: 50px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.profile-card-wide h3 {
+    font-size: 26px;
+    margin-bottom: 16px;
+    color: var(--text-light);
+}
+
+.profile-card-wide p {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+}
+
+/* --- SEÇÃO 5: MERCADO & GRÁFICO CIRCULAR --- */
+.market-section {
+    padding: 100px 0;
+    background-color: var(--bg-white);
+}
+
+.market-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.market-text h2 {
+    font-size: 38px;
+    color: var(--c4s-dark-teal);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.market-text p {
+    color: var(--text-gray);
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+.market-graphic {
+    background-color: var(--c4s-light-teal);
+    border-radius: 24px;
+    padding: 60px;
+    position: relative;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle-1, .circle-2 {
+    position: absolute;
+    border: 1px solid rgba(49, 163, 159, 0.3);
+    border-radius: 50%;
+}
+
+.circle-1 { width: 300px; height: 300px; }
+.circle-2 { width: 180px; height: 180px; }
+
+.market-icon-box {
+    width: 48px;
+    height: 48px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--c4s-teal);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    position: absolute;
+}
+
+/* --- SEÇÃO 6: CALL TO ACTION (CTA) FINAL --- */
+.cta-section {
+    background-color: var(--c4s-dark-teal);
+    padding: 100px 0;
+    text-align: center;
+    color: var(--text-light);
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    margin: 0 20px;
+}
+
+.cta-section h2 {
+    font-size: 42px;
+    margin-bottom: 24px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.2;
+}
+
+.cta-section p {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 40px;
+    font-size: 18px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- COMPONENTES: FOOTER (RODAPÉ) --- */
+footer {
+    background-color: var(--bg-darker);
+    color: var(--text-muted);
+    padding: 80px 0 30px;
+    font-size: 14px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer-logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--c4s-teal);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-col h4 {
+    color: var(--text-light);
+    margin-bottom: 24px;
+    font-size: 16px;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 16px;
+}
+
+.footer-col ul li a {
+    color: var(--text-muted);
+    transition: color 0.3s;
+}
+
+.footer-col ul li a:hover {
+    color: var(--c4s-teal);
+}
+
+.social-icons {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.social-icons a:hover {
+    background: var(--c4s-teal);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVIDADE)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .item-1 {
+        grid-column: span 3;
+        height: 200px;
+        min-height: 200px;
+    }
+    .item-2, .item-3, .item-4, .item-5 {
+        grid-column: span 1;
+    }
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .hero h1 {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 900px) {
+    .benefits-grid, 
+    .market-grid, 
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .cards-grid {
+        max-width: 500px;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        display: none; /* Simplificação do menu para mobile */
+    }
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+    .item-1, .item-2, .item-3, .item-4, .item-5 {
+        grid-column: span 1;
+        min-height: 250px;
+    }
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    .hero h1 {
+        font-size: 36px;
+    }
+    .services-section, 
+    .profiles-section, 
+    .cta-section {
+        padding: 60px 20px;
+        border-radius: 20px;
+        margin: 0 10px;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+}
+
+/* ==========================================
+   RESPONSIVIDADE MÁXIMA (SMARTPHONES < 600px)
+   ========================================== */
+@media (max-width: 600px) {
+    
+    /* 1. Correção da Tipografia Principal (Evita quebra de palavras) */
+    .hero-content-box h1 {
+        font-size: 32px !important;
+        line-height: 1.2;
+    }
+    
+    .frente-title, .cta-final-card h2, .security-card h2 {
+        font-size: 30px !important;
+    }
+
+    .hero-content-box p {
+        font-size: 16px;
+    }
+
+    /* 2. Empilhamento Inteligente de Botões (Usabilidade de Polegar) */
+    .hero-action-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+    
+    .hero-action-buttons button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Ajuste fino dos botões no Header do Mobile */
+    .header-actions {
+        display: none; /* Esconde os botões soltos no mobile para dar lugar ao Menu */
+    }
+
+    /* 3. Correção Crítica do Rodapé (Evita quebra horizontal) */
+    .footer-container {
+        grid-template-columns: 1fr !important; /* Força 1 coluna apenas */
+        gap: 32px;
+        text-align: center;
+    }
+
+    /* Centraliza os logos e textos do rodapé no celular */
+    .footer-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo-img-footer {
+        margin-left: 0;
+    }
+
+    .footer-brand p {
+        text-align: center;
+    }
+
+    /* 4. Respiros em Cards e Frentes */
+    .frente-container, .cta-final-card, .security-card {
+        padding: 40px 24px !important;
+        border-radius: 24px;
+    }
+
+    .frente-media {
+        height: 240px; /* Reduz a altura dos mockups no celular */
+    }
+}
+
+/* Responsividade Intermediária (Tablets < 1024px) - Ajuste no Footer */
+@media (max-width: 1024px) and (min-width: 601px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr; /* 2 colunas em tablets */
+    }
+}
+
+/* =========================================
+   COMPONENTE DE LOGIN - C4S
+   ========================================= */
+
+/* Container Glassmorphism - Adapta-se ao fundo que já existe no seu site */
+.c4s-login-wrapper {
+    background: rgba(30, 41, 59, 0.4); /* Fundo semi-transparente escuro */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto; /* Centraliza na div pai */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+}
+
+/* Textos - Herdam a fonte do site */
+.title-login {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #ffffff; /* Ajuste para a cor de título padrão do seu site */
+    text-align: center;
+}
+
+.subtitle-login {
+    color: #94a3b8; /* Cinza claro */
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+/* Campos de Input */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.c4s-input {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit; /* Herda a fonte principal do seu site */
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.c4s-input::placeholder {
+    color: #64748b;
+}
+
+/* Hover e Focus com a cor principal (Teal) */
+.c4s-input:focus {
+    border-color: #0d9488; /* Substitua pelo Verde/Teal da C4S */
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
+}
+
+/* Utilitários e Links */
+.form-utils {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 24px;
+}
+
+.forgot-pass {
+    color: #0d9488; /* Cor principal da C4S */
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.forgot-pass:hover {
+    color: #14b8a6;
+    text-decoration: underline;
+}
+
+/* Botão Principal */
+.btn-submit {
+    width: 100%;
+    background-color: #0d9488; /* Cor principal da C4S */
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit; /* Herda a fonte do site */
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-submit:hover:not(:disabled) {
+    background-color: #0f766e; /* Cor principal mais escura */
+}
+
+.btn-submit:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.btn-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Feedback de Erro/Sucesso */
+.feedback-msg {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    text-align: center;
+    display: none;
+}
+
+.feedback-msg.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.feedback-msg.success {
+    background-color: rgba(13, 148, 136, 0.1);
+    color: #5eead4;
+    border: 1px solid rgba(13, 148, 136, 0.3);
+}
+
+/* Rodapé */
+.login-footer {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 14px;
+    color: #94a3b8;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 24px;
+}
+
+.login-footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.login-footer a:hover {
+    color: #0d9488;
+}

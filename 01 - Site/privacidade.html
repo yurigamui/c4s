@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Políticas e Termos | C4S Securitizadora</title>
+    
+    <link rel="icon" href="assets/img/favicon.png" type="image/png">
+    
+    <!-- Link para o arquivo CSS consolidado -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
+
+    <style>
+        /* Estilos específicos para a página de termos e privacidade */
+        .legal-section {
+            padding: 60px 0 100px;
+            background-color: var(--bg-white);
+        }
+        
+        .legal-container {
+            display: block;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .legal-tabs {
+            display: block;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .legal-tab-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-gray);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.3s;
+        }
+
+        .legal-tab-btn:hover {
+            color: var(--c4s-teal);
+        }
+
+        .legal-tab-btn.active {
+            color: var(--c4s-dark-teal);
+            border-bottom-color: var(--c4s-teal);
+        }
+
+        .legal-content {
+            background: var(--bg-white);
+            padding: 20px 0;
+        }
+
+        .legal-block {
+            display: none;
+        }
+
+        .legal-block.active {
+            display: block;
+        }
+
+        .legal-content h3 {
+            font-size: 22px;
+            color: var(--c4s-dark-teal);
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--c4s-teal);
+            padding-left: 12px;
+        }
+
+        .legal-content h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .legal-content p {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .legal-content ul, .legal-content ol {
+            margin-bottom: 25px;
+            padding-left: 24px;
+            color: var(--text-gray);
+            font-size: 15px;
+        }
+
+        .legal-content li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .update-date {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container header-content">
+            <div class="logo font-montserrat">C4S</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="sobre.html">Sobre a C4S</a></li>
+                    <li><a href="investidores.html">Investidores</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <a href="login.html" class="btn btn-outline-dark" style="padding: 10px 20px; font-size: 13px;">Área do Investidor</a>
+                <a href="contato.html" class="btn btn-teal" style="padding: 10px 20px; font-size: 13px;">Fale com Especialista</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- HERO SECTION -->
+    <section class="hero" style="padding-bottom: 30px;">
+        <div class="container">
+            <h1 style="max-width: 900px;">Transparência <span style="color: var(--c4s-teal);">Legal</span></h1>
+            <p class="subtitle" style="max-width: 750px;">Conheça nossas diretrizes de privacidade, proteção de dados (LGPD) e as regras de uso das nossas plataformas digitais.</p>
+        </div>
+    </section>
+
+    <!-- LEGAL SECTION -->
+    <section class="legal-section">
+        <div class="container">
+            <div class="legal-container">
+                
+                <!-- Abas de Navegação (Para alternar entre Política e Termos na mesma tela) -->
+                <div class="legal-tabs">
+                    <div class="legal-tab-btn active" id="tab-privacidade" onclick="switchTab('privacidade')">Política de Privacidade</div>
+                    <div class="legal-tab-btn" id="tab-termos" onclick="switchTab('termos')">Termos de Uso</div>
+                </div>
+
+                <!-- Conteúdo das Políticas -->
+                <div class="legal-content">
+                    
+                    <!-- BLOCO 1: POLÍTICA DE PRIVACIDADE -->
+                    <div class="legal-block active" id="content-privacidade">
+                        <div class="update-date">Última atualização: 29 de maio de 2026</div>
+                        
+                        <p>A <strong>CREDIT4SURE SECURITIZADORA S.A. ("C4S")</strong>, inscrita no CNPJ sob o nº 37.566.075/0001-44, valoriza a privacidade e a proteção dos dados pessoais de seus usuários. Esta Política de Privacidade descreve como coletamos, usamos, armazenamos e protegemos as informações coletadas por meio de nosso website oficial, em estrita conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD).</p>
+                        
+                        <h3>1. Informações que Coletamos</h3>
+                        <p>A C4S coleta dados pessoais de forma voluntária quando o usuário preenche nosso formulário de contato ou solicita simulações de operações. Os dados coletados incluem:</p>
+                        <ul>
+                            <li><strong>Dados de Identificação:</strong> Nome completo e nome da empresa representada.</li>
+                            <li><strong>Dados de Contato:</strong> Endereço de e-mail corporativo ou pessoal e número de telefone/WhatsApp.</li>
+                            <li><strong>Dados de Perfil Comercial:</strong> Indicação se o usuário busca soluções para empresas (crédito) ou para investidores (debêntures estruturadas).</li>
+                        </ul>
+
+                        <h3>2. Finalidade do Tratamento de Dados</h3>
+                        <p>Utilizamos os dados coletados estritamente para as seguintes finalidades legítimas:</p>
+                        <ul>
+                            <li><strong>Atendimento ao Cliente:</strong> Responder a dúvidas, solicitações de simulação de antecipação de recebíveis ou informações sobre emissões.</li>
+                            <li><strong>Análise de Risco Prévio:</strong> Realizar triagens básicas de compliance corporativo e prevenção à lavagem de dinheiro (PLD/CFT) antes do início de qualquer relacionamento comercial.</li>
+                            <li><strong>Comunicação Institucional:</strong> Enviar atualizações operacionais, relatórios mensais de RI (para investidores cadastrados) e informações relevantes sobre o mercado de crédito estruturado.</li>
+                        </ul>
+
+                        <h3>3. Compartilhamento de Informações</h3>
+                        <p>A C4S não comercializa nem compartilha seus dados pessoais com terceiros para fins publicitários. O compartilhamento de informações poderá ocorrer unicamente nas seguintes hipóteses:</p>
+                        <ul>
+                            <li>Com prestadores de serviços tecnológicos e parceiros de infraestrutura que auxiliam na manutenção do site e gerenciamento de formulários (como o Formspree), sob rígidos contratos de confidencialidade.</li>
+                            <li>Com autoridades regulatórias, de fiscalização ou órgãos judiciais (como a CVM ou o Banco Central), caso haja obrigação legal ou regulatória aplicável à atividade de securitização.</li>
+                        </ul>
+
+                        <h3>4. Segurança e Retenção dos Dados</h3>
+                        <p>Adotamos medidas técnicas e administrativas aptas a proteger os dados pessoais de acessos não autorizados ou destruição acidental. Os dados serão armazenados apenas pelo período estritamente necessário para cumprir as finalidades para as quais foram coletados ou para o cumprimento de obrigações legais e regulatórias do mercado financeiro.</p>
+
+                        <h3>5. Direitos do Titular dos Dados (LGPD)</h3>
+                        <p>Em conformidade com o artigo 18 da LGPD, o usuário poderá, a qualquer momento, solicitar através do e-mail <strong>contato@c4s.credit</strong>:</p>
+                        <ol>
+                            <li>Confirmação da existência de tratamento e acesso aos seus dados.</li>
+                            <li>Correção de dados incompletos, inexatos ou desatualizados.</li>
+                            <li>Eliminação ou anonimização de dados desnecessários ou tratados em desconformidade com a lei.</li>
+                            <li>Revogação do consentimento para envio de comunicações informativas.</li>
+                        </ol>
+                    </div>
+
+                    <!-- BLOCO 2: TERMOS DE USO -->
+                    <div class="legal-block" id="content-termos">
+                        <div class="update-date">Última atualização: 29 de maio de 2026</div>
+                        
+                        <p>Seja bem-vindo ao website da <strong>C4S Securitizadora</strong>. Ao acessar, navegar ou utilizar este site, o usuário declara ter lido, compreendido e aceitado cumprir integralmente os Termos de Uso aqui descritos. Caso não concorde com qualquer uma das condições, recomendamos que interrompa a navegação imediatamente.</p>
+                        
+                        <h3>1. Escopo das Informações e Simulações</h3>
+                        <p>Todo o conteúdo disponibilizado neste website possui caráter estritamente informativo e educacional sobre o mercado de securitização, antecipação de recebíveis e debêntures estruturadas. </p>
+                        <p>As simulações de taxas, prazos ou projeções de rentabilidade disponibilizadas nas páginas do site ou fornecidas preliminarmente constituem meras estimativas comerciais. Elas não configuram oferta firme, contrato vinculante ou garantia de ganho futuro. As operações só serão formalizadas após análise de crédito formal, aprovação pelo Comitê de Risco da C4S e assinatura dos respectivos contratos de cessão ou escrituras de emissão.</p>
+
+                        <h3>2. Elegibilidade e Uso Adequado</h3>
+                        <p>Os serviços oferecidos pela C4S destinam-se a empresas legalmente constituídas (PJs) buscando fomento ou a investidores que possuam maturidade financeira condizente com o mercado de crédito privado. O usuário compromete-se a fornecer informações verdadeiras, exatas e completas nos formulários de contato, sendo civil e criminalmente responsável por dados falsos ou tentativas de fraude de identidade.</p>
+
+                        <h3>3. Propriedade Intelectual</h3>
+                        <p>A marca "C4S", o logotipo corporativo, o design das páginas, os códigos-fonte, os textos e a arquitetura visual do site são de propriedade exclusiva da CREDIT4SURE SECURITIZADORA S.A. É expressamente proibida a cópia, reprodução, alteração ou distribuição não autorizada de qualquer material deste portal para fins comerciais.</p>
+
+                        <h3>4. Limitação de Responsabilidade</h3>
+                        <p>A C4S empenha seus melhores esforços para manter o site atualizado e livre de interrupções ou vírus de software. Contudo, não nos responsabilizamos por danos decorrentes de instabilidades de rede do usuário, falhas técnicas globais ou prejuízos comerciais baseados exclusivamente em interpretações de textos contidos neste ambiente institucional.</p>
+
+                        <h3>5. Foro de Eleição</h3>
+                        <p>Estes Termos de Uso são regidos pelas leis da República Federativa do Brasil. Fica eleito o Foro da Comarca de Curitiba, Estado do Paraná, com exclusão de qualquer outro, por mais privilegiado que seja, para dirimir quaisquer controvérsias oriundas do uso deste website.</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo font-montserrat">C4S</div>
+                    <p style="margin-bottom: 20px;">Construída por especialistas do mercado financeiro. Atuamos como emissora de debêntures estruturadas com foco em transparência e garantias reais.</p>
+                    <p style="font-size: 12px; color: rgba(255,255,255,0.5);">CREDIT4SURE SECURITIZADORA S.A.<br>CNPJ: 37.566.075/0001-44</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Institucional</h4>
+                    <ul>
+                        <li><a href="sobre.html">Sobre a C4S</a></li>
+                        <li><a href="#">Governança</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Soluções</h4>
+                    <ul>
+                        <li><a href="#empresas">Antecipação Corporativa</a></li>
+                        <li><a href="investidores.html">Debêntures Estruturadas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <p>contato@c4s.credit</p>
+                    <p style="margin-top:10px;">Curitiba/PR</p>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/company/credit4sure"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="http://wa.me/5541999150163"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2026 C4S Securitizadora. Todos os direitos reservados.</div>
+                <div style="display:flex; gap:20px;">
+                    <a href="privacidade.html">Termos & Condições</a>
+                    <a href="privacidade.html">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT SIMPLES PARA ALTERNAR AS ABAS (JavaScript puro e leve) -->
+    <script>
+        function switchTab(type) {
+            // Remove classes ativas de todas as abas e blocos
+            document.getElementById('tab-privacidade').classList.remove('active');
+            document.getElementById('tab-termos').classList.remove('active');
+            document.getElementById('content-privacidade').classList.remove('active');
+            document.getElementById('content-termos').classList.remove('active');
+            
+            // Adiciona classe ativa na aba e bloco clicado
+            document.getElementById('tab-' + type).classList.add('active');
+            document.getElementById('content-' + type).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>

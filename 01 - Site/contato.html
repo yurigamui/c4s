@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato | C4S Securitizadora</title>
+    
+    <link rel="icon" href="assets/img/favicon.png" type="image/png">
+    
+    <!-- Link para o arquivo CSS consolidado -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
+
+    <style>
+        /* Estilos específicos para a página de contato */
+        .contact-section {
+            padding: 80px 0;
+            background-color: var(--bg-white);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            background: var(--bg-white);
+            border-radius: 24px;
+            box-shadow: 0 15px 40px rgba(14, 55, 50, 0.08);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .contact-info {
+            background-color: var(--c4s-dark-teal);
+            color: var(--text-light);
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Detalhe de fundo no card escuro */
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(49,163,159,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .info-icon {
+            color: var(--c4s-teal);
+            font-size: 24px;
+            margin-top: 4px;
+        }
+
+        .info-text h4 {
+            font-size: 18px;
+            margin-bottom: 4px;
+            color: var(--text-light);
+        }
+
+        .info-text p {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .contact-form {
+            padding: 60px 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--c4s-dark-teal);
+            margin-bottom: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text-dark);
+            background-color: var(--bg-gray);
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--c4s-teal);
+            background-color: var(--bg-white);
+            box-shadow: 0 0 0 3px rgba(49, 163, 159, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .social-contact {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .social-contact a {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .social-contact a:hover {
+            background: var(--c4s-teal);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 900px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container header-content">
+            <div class="logo font-montserrat">C4S</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="sobre.html">Sobre a C4S</a></li>
+                    <li><a href="investidores.html">Investidores</a></li>
+                    <li><a href="contato.html" class="active">Contato</a></li>
+                </ul>
+            </nav>
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <a href="login.html" class="btn btn-outline-dark" style="padding: 10px 20px; font-size: 13px;">Área do Investidor</a>
+                <a href="contato.html" class="btn btn-teal" style="padding: 10px 20px; font-size: 13px;">Fale com Especialista</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" style="padding-bottom: 40px;">
+        <div class="container">
+            <h1 style="max-width: 900px;">Fale com a <span style="color: var(--c4s-teal);">C4S</span></h1>
+            <p class="subtitle" style="max-width: 750px;">Nossa equipe está pronta para desenhar a melhor solução financeira para a sua empresa ou para o seu portfólio de investimentos.</p>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                
+                <!-- Informações de Contato (Lado Esquerdo) -->
+                <div class="contact-info">
+                    <h3 class="font-montserrat" style="font-size: 28px; margin-bottom: 30px;">Informações de Contato</h3>
+
+
+                    <div class="info-item">
+                        <i class="fas fa-envelope info-icon"></i>
+                        <div class="info-text">
+                            <h4>E-mail</h4>
+                            <p>contato@c4s.credit</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt info-icon"></i>
+                        <div class="info-text">
+                            <h4>Telefone / WhatsApp</h4>
+                            <p>+55 41 99915-0163</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-clock info-icon"></i>
+                        <div class="info-text">
+                            <h4>Horário de Atendimento</h4>
+                            <p>Segunda a Sexta<br>09:00 às 18:00</p>
+                        </div>
+                    </div>
+
+                    <div class="social-contact">
+                        <a href="https://www.linkedin.com/company/credit4sure"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="http://wa.me/5541999150163"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <!-- Formulário (Lado Direito) -->
+                <div class="contact-form">
+                    <h3 class="font-montserrat" style="font-size: 28px; color: var(--c4s-dark-teal); margin-bottom: 10px;">Envie uma mensagem</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 30px; font-size: 14px;">Preencha o formulário abaixo e um de nossos especialistas retornará o mais breve possível.</p>
+                    
+                    <!-- FORMULÁRIO INTEGRADO COM FORMSPREE -->
+                    <form action="https://formspree.io/f/SEU_CODIGO_AQUI" method="POST">
+                        
+                        <!-- Anti-spam do Formspree (Campo oculto) -->
+                        <label style="display: none !important;">
+                            Deixe este campo em branco: <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+                        </label>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nome">Nome Completo</label>
+                                <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa">Empresa</label>
+                                <input type="text" id="empresa" name="empresa" placeholder="Nome da sua empresa">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">E-mail Corporativo</label>
+                                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefone">Telefone / WhatsApp</label>
+                                <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="assunto">Qual o seu perfil?</label>
+                            <select id="assunto" name="assunto" required>
+                                <option value="" disabled selected>Selecione uma opção...</option>
+                                <option value="Empresa">Sou Empresa (Busco crédito/antecipação)</option>
+                                <option value="Investidor">Sou Investidor (Busco debêntures/rentabilidade)</option>
+                                <option value="Parceria">Parcerias e Outros Assuntos</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensagem">Como podemos ajudar?</label>
+                            <textarea id="mensagem" name="mensagem" placeholder="Descreva brevemente a sua necessidade..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-teal" style="width: 100%; font-size: 16px; padding: 16px;">Enviar Mensagem</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo font-montserrat">C4S</div>
+                    <p style="margin-bottom: 20px;">Construída por especialistas do mercado financeiro. Atuamos como emissora de debêntures estruturadas com foco em transparência e garantias reais.</p>
+                    <p style="font-size: 12px; color: rgba(255,255,255,0.5);">CREDIT4SURE SECURITIZADORA S.A.<br>CNPJ: 37.566.075/0001-44</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Institucional</h4>
+                    <ul>
+                        <li><a href="sobre.html">Sobre a C4S</a></li>
+                        <li><a href="#">Governança</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Soluções</h4>
+                    <ul>
+                        <li><a href="#empresas">Antecipação Corporativa</a></li>
+                        <li><a href="investidores.html">Debêntures Estruturadas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <p>contato@c4s.credit</p>
+                    <p style="margin-top:10px;">Curitiba/PR</p>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/company/credit4sure"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="http://wa.me/5541999150163"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2026 C4S Securitizadora. Todos os direitos reservados.</div>
+                <div style="display:flex; gap:20px;">
+                    <a href="privacidade.html">Termos & Condições</a>
+                    <a href="privacidade.html">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

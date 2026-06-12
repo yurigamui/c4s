@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Confirme seu cadastro no Portal do Investidor C4S Securitizadora.">
+    <title>Confirmar Cadastro - C4S Securitizadora</title>
+    <link rel="icon" href="assets/img/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --c4s-dark-teal: #0e3732;
+            --c4s-teal: #31a39f;
+            --c4s-teal-hover: #268783;
+            --c4s-light-teal: #e6f4f3;
+            --bg-white: #ffffff;
+            --bg-gray: #f8fafc;
+            --text-dark: #1a202c;
+            --text-gray: #4a5568;
+            --text-light: #ffffff;
+            --text-muted: #a0aec0;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+        }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+
+        .brand-section {
+            flex: 1;
+            background: linear-gradient(160deg, var(--c4s-dark-teal) 0%, #145c54 60%, var(--c4s-teal) 100%);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .brand-section::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.04) 10%, transparent 10%),
+                        radial-gradient(circle, rgba(255,255,255,0.04) 10%, transparent 10%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            pointer-events: none;
+        }
+        .brand-logo { z-index: 1; position: relative; }
+        .brand-logo h2 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; color: var(--c4s-teal); }
+        .brand-content { z-index: 1; position: relative; max-width: 450px; }
+        .brand-content h1 { font-size: 2.8rem; font-weight: 600; line-height: 1.2; margin-bottom: 20px; }
+        .brand-content p { font-size: 1.1rem; color: rgba(255,255,255,0.75); font-weight: 300; line-height: 1.7; }
+        .brand-footer { z-index: 1; position: relative; font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+
+        .form-section {
+            flex: 1;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 80px;
+            background: var(--bg-white);
+        }
+        .form-header { margin-bottom: 36px; }
+        .form-header h2 { font-size: 1.8rem; font-weight: 600; color: var(--text-dark); margin-bottom: 10px; }
+        .form-header p { font-size: 1rem; color: var(--text-gray); line-height: 1.5; }
+
+        .email-info {
+            background: var(--c4s-light-teal);
+            border: 1px solid var(--c4s-teal);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+            color: var(--c4s-dark-teal);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .feedback-container {
+            display: none;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            align-items: center;
+            gap: 10px;
+        }
+        .feedback-container.visible { display: flex; }
+        .feedback-container.error { background-color: #fef2f2; color: var(--error-color); border: 1px solid #fecaca; }
+        .feedback-container.success { background-color: #f0fdf4; color: var(--success-color); border: 1px solid #bbf7d0; }
+
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: var(--text-dark); }
+        .form-group input {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--bg-gray);
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+        .form-group input::placeholder { color: var(--text-muted); }
+        .form-group input:focus {
+            outline: none;
+            background-color: var(--bg-white);
+            border-color: var(--c4s-teal);
+            box-shadow: 0 0 0 4px rgba(49,163,159,0.1);
+        }
+
+        .btn-submit {
+            width: 100%; padding: 16px;
+            background-color: var(--c4s-teal);
+            color: var(--text-light);
+            border: none; border-radius: 8px;
+            font-size: 1.05rem; font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .btn-submit:hover:not(:disabled) {
+            background-color: var(--c4s-dark-teal);
+            box-shadow: 0 4px 16px rgba(14,55,50,0.25);
+            transform: translateY(-1px);
+        }
+        .btn-submit:disabled { background-color: #cbd5e1; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .back-link {
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-top: 28px;
+            font-size: 0.95rem; color: var(--text-gray);
+            text-decoration: none; font-weight: 500;
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: var(--c4s-teal); }
+
+        @media (max-width: 900px) {
+            .brand-section { display: none; }
+            .form-section { max-width: 100%; padding: 40px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="brand-section">
+        <div class="brand-logo"><h2>C4S</h2></div>
+        <div class="brand-content">
+            <h1>Gestão e Solidez<br>para o seu portfólio.</h1>
+            <p>Acesse o portal exclusivo para debenturistas e acompanhe seus investimentos com total segurança e transparência.</p>
+        </div>
+        <div class="brand-footer">&copy; 2026 C4S Securitizadora. Todos os direitos reservados.</div>
+    </div>
+
+    <div class="form-section">
+        <div class="form-header">
+            <h2>Confirmação de cadastro</h2>
+            <p>Insira o código de confirmação enviado para o seu e-mail para ativar o acesso ao portal.</p>
+        </div>
+
+        <div id="email-info" class="email-info" style="display:none;">
+            <i class="fa-solid fa-envelope"></i>
+            <span id="email-masked"></span>
+        </div>
+
+        <div id="feedback-box" class="feedback-container">
+            <i id="feedback-icon" class="fa-solid fa-circle-info"></i>
+            <span id="feedback-text"></span>
+        </div>
+
+        <form id="form-confirmar">
+            <div class="form-group">
+                <label for="codigo">Código de confirmação</label>
+                <input type="text" id="codigo" placeholder="Ex: 1234" required autocomplete="one-time-code">
+            </div>
+
+            <button type="submit" id="btn-submit" class="btn-submit">
+                Confirmar Cadastro <i class="fa-solid fa-check"></i>
+            </button>
+        </form>
+
+        <a href="/login.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Voltar para o Login
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginPendente = sessionStorage.getItem('c4s_login_pendente');
+            if (!loginPendente) {
+                window.location.href = '/login.html';
+                return;
+            }
+
+            const emailInfoDiv = document.getElementById('email-info');
+            const emailMasked = document.getElementById('email-masked');
+            emailMasked.textContent = `Código enviado para: ${maskEmail(loginPendente)}`;
+            emailInfoDiv.style.display = 'flex';
+
+            const form = document.getElementById('form-confirmar');
+            const feedbackBox = document.getElementById('feedback-box');
+            const feedbackIcon = document.getElementById('feedback-icon');
+            const feedbackText = document.getElementById('feedback-text');
+            const submitBtn = document.getElementById('btn-submit');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                showFeedback('', '');
+
+                const codigo = document.getElementById('codigo').value.trim();
+                if (!codigo) {
+                    showFeedback('Informe o código de confirmação.', 'error');
+                    return;
+                }
+
+                setLoadingState(true);
+
+                try {
+                    const response = await fetch('/api/confirmar-usuario', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ login: loginPendente, codigo })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.status === 'OK') {
+                        showFeedback('Cadastro confirmado com sucesso! Redirecionando...', 'success');
+                        sessionStorage.removeItem('c4s_login_pendente');
+                        setTimeout(() => {
+                            window.location.href = '/login.html?msg=confirmado';
+                        }, 1500);
+                    } else {
+                        showFeedback(data.mensagem || 'Código de confirmação inválido.', 'error');
+                        setLoadingState(false);
+                    }
+                } catch (error) {
+                    showFeedback('Falha de conexão com o servidor. Tente mais tarde.', 'error');
+                    setLoadingState(false);
+                }
+            });
+
+            function maskEmail(email) {
+                if (!email.includes('@')) return email.charAt(0) + '***';
+                const [user, domain] = email.split('@');
+                return user.charAt(0) + '***@' + domain;
+            }
+
+            function showFeedback(message, type) {
+                if (!message) {
+                    feedbackBox.className = 'feedback-container';
+                    feedbackText.textContent = '';
+                    return;
+                }
+                feedbackText.textContent = message;
+                const iconMap = { error: 'fa-solid fa-circle-exclamation', success: 'fa-solid fa-circle-check' };
+                feedbackIcon.className = iconMap[type] || 'fa-solid fa-circle-info';
+                feedbackBox.className = `feedback-container ${type} visible`;
+            }
+
+            function setLoadingState(isLoading) {
+                if (isLoading) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Confirmando...';
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Confirmar Cadastro <i class="fa-solid fa-check"></i>';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
