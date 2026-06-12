@@ -586,14 +586,13 @@
                                     <th>Série</th>
                                     <th>Emissão</th>
                                     <th>Vencimento</th>
-                                    <th>Qtd</th>
                                     <th>Taxa</th>
                                     <th>Valor Aplicado</th>
                                     <th>Valor Líquido</th>
                                 </tr>
                             </thead>
                             <tbody id="debentures-tbody">
-                                <tr><td colspan="7"><div class="loading-spinner"><i class="fas fa-circle-notch fa-spin"></i></div></td></tr>
+                                <tr><td colspan="6"><div class="loading-spinner"><i class="fas fa-circle-notch fa-spin"></i></div></td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -863,7 +862,7 @@
         function renderDebentures() {
             const tbody = document.getElementById('debentures-tbody');
             if (state.debentures.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-gray);">Nenhuma debênture encontrada.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-gray);">Nenhuma debênture encontrada.</td></tr>';
                 return;
             }
             tbody.innerHTML = state.debentures.map(d => `
@@ -871,7 +870,6 @@
                     <td><strong>Série ${d.serie}</strong></td>
                     <td>${d.dataEmissaoDebenture}</td>
                     <td>${d.dataVencimentoDebenture}</td>
-                    <td>${d.quantidade}</td>
                     <td>${d.descricaoTaxa}</td>
                     <td>R$ ${d.valorAplicado}</td>
                     <td class="value-highlight">R$ ${d.valorLiquido}</td>
