@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Invista com a C4S Securitizadora. Debêntures estruturadas com lastro em ativos reais, alta rentabilidade e governança institucional para investidores individuais e corporativos.">
+    <title>Investidores | C4S Securitizadora</title>
+    
+    <link rel="icon" href="assets/img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ── STATS BAR ── */
+        .stats-bar {
+            background: linear-gradient(135deg, var(--c4s-dark-teal) 0%, #0a2623 100%);
+            padding: 48px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .stats-bar::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(49,163,159,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .stats-bar::after {
+            content: '';
+            position: absolute;
+            bottom: -80px; left: -80px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(49,163,159,0.07) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            position: relative;
+            z-index: 1;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 24px 32px;
+            position: relative;
+        }
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: rgba(255,255,255,0.12);
+        }
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--c4s-teal);
+            line-height: 1;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+        .stat-label {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.65);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .stat-sub {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 4px;
+        }
+
+        /* ── COMO FUNCIONA ── */
+        .how-section {
+            padding: 100px 0;
+            background-color: var(--bg-white);
+        }
+        .how-section .section-header h2 {
+            color: var(--c4s-dark-teal);
+        }
+        .how-section .section-header p {
+            color: var(--text-gray);
+        }
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 60px;
+            position: relative;
+        }
+        .how-steps::before {
+            content: '';
+            position: absolute;
+            top: 36px;
+            left: calc(16.66% + 16px);
+            right: calc(16.66% + 16px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--c4s-teal), rgba(49,163,159,0.3));
+            z-index: 0;
+        }
+        .how-step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .step-num {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--c4s-light-teal);
+            border: 3px solid var(--c4s-teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--c4s-dark-teal);
+            transition: all 0.3s;
+            background: white;
+        }
+        .how-step:hover .step-num {
+            background: var(--c4s-teal);
+            color: white;
+            transform: scale(1.08);
+            box-shadow: 0 8px 24px rgba(49,163,159,0.3);
+        }
+        .step-icon {
+            font-size: 1.5rem;
+            color: var(--c4s-teal);
+            margin-bottom: 8px;
+        }
+        .how-step h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--c4s-dark-teal);
+            margin-bottom: 12px;
+        }
+        .how-step p {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            line-height: 1.7;
+            max-width: 240px;
+            margin: 0 auto;
+        }
+
+        /* ── OVERRIDE: section-header em fundo branco ── */
+        .how-section .section-header p,
+        .profiles-section-light .section-header p {
+            color: var(--text-gray);
+        }
+
+        /* ── PERFIS SECTION (fundo branco para a página de investidores) ── */
+        .profiles-section-light {
+            background-color: var(--bg-gray);
+            padding: 100px 0;
+            border-radius: 40px;
+            margin: 0 20px;
+        }
+        .profiles-section-light .section-header h2 {
+            color: var(--c4s-dark-teal);
+        }
+        .profiles-section-light .profile-card {
+            background: var(--bg-white);
+            border: 1px solid #e2e8f0;
+            color: var(--text-dark);
+        }
+        .profiles-section-light .profile-card:hover {
+            border-color: var(--c4s-teal);
+            box-shadow: 0 12px 40px rgba(49,163,159,0.12);
+        }
+        .profiles-section-light .profile-card h3 {
+            color: var(--c4s-dark-teal);
+        }
+        .profiles-section-light .profile-card > p {
+            color: var(--text-gray);
+            min-height: unset;
+        }
+        .profiles-section-light .feature-list {
+            border-top-color: #e2e8f0;
+        }
+        .profiles-section-light .feature-list li {
+            color: var(--text-gray);
+        }
+
+        /* Responsividade das novas seções */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .stat-item:not(:last-child)::after {
+                right: 20%;
+                left: 20%;
+                top: auto;
+                bottom: 0;
+                height: 1px;
+                width: auto;
+            }
+            .stat-number {
+                font-size: 2rem;
+            }
+            .how-steps {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .how-steps::before {
+                display: none;
+            }
+            .how-section {
+                padding: 60px 0;
+            }
+            .profiles-section-light {
+                border-radius: 20px;
+                margin: 0 10px;
+                padding: 60px 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .stat-item {
+                padding: 28px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container header-content">
+            <div class="logo font-montserrat">C4S</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="sobre.html">Sobre a C4S</a></li>
+                    <li><a href="investidores.html" class="active">Investidores</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="header-desktop-actions" style="display: flex; gap: 12px; align-items: center;">
+                <a href="login.html" class="btn btn-outline-dark" style="padding: 10px 20px; font-size: 13px;">Área do Investidor</a>
+                <a href="contato.html" class="btn btn-teal" style="padding: 10px 20px; font-size: 13px;">Fale com Especialista</a>
+            </div>
+            <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menu"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- MOBILE NAV -->
+    <div class="mobile-nav-overlay" id="nav-overlay"></div>
+    <div class="mobile-nav-drawer" id="nav-drawer">
+        <button class="drawer-close" id="drawer-close" aria-label="Fechar menu"><i class="fa-solid fa-xmark"></i></button>
+        <div class="drawer-logo">C4S</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sobre.html">Sobre a C4S</a></li>
+            <li><a href="investidores.html" class="active">Investidores</a></li>
+            <li><a href="contato.html">Contato</a></li>
+        </ul>
+        <div class="drawer-actions">
+            <a href="login.html" class="btn btn-outline-dark">Área do Investidor</a>
+            <a href="contato.html" class="btn btn-teal">Fale com Especialista</a>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 1: HERO -->
+    <section class="hero">
+        <div class="container">
+            <h1>Rentabilidade de verdade começa com <span style="color: var(--c4s-teal);">estrutura sólida</span></h1>
+            <p class="subtitle">Mais do que rentabilidade, acreditamos em investimentos sustentados por análise criteriosa, gestão de risco e operações estruturadas em ativos reais.</p>
+            
+            <div class="hero-buttons">
+                <a href="#como-funciona" class="btn btn-teal">Como Funciona</a>
+                <a href="login.html" class="btn btn-outline-dark">Área do Investidor</a>
+            </div>
+            
+            <div class="trust-indicator">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <span style="font-weight: 600; color: var(--c4s-dark-teal); margin-left: 8px;">Transparência</span>
+                <span>e Governança atestada</span>
+            </div>
+
+            <!-- Bento Grid -->
+            <div class="bento-grid">
+                <div class="bento-item item-2">
+                    <div class="icon-box"><i class="fas fa-user-tie"></i></div>
+                    <h3 class="font-montserrat">Experiência</h3>
+                    <p>Especialistas com vivência em bancos, análise de risco e crédito estruturado.</p>
+                </div>
+                <div class="bento-item item-3">
+                    <div class="icon-box"><i class="fas fa-chart-pie"></i></div>
+                    <h3 class="font-montserrat">Ativos Reais</h3>
+                    <p>Operações lastreadas em recebíveis reais, blindando o risco sistêmico.</p>
+                </div>
+                <div class="bento-item item-4">
+                    <div class="icon-box"><i class="fas fa-clipboard-check"></i></div>
+                    <h3 class="font-montserrat">Governança e<br>Auditoria</h3>
+                    <p>Acompanhamento constante das operações e relatórios rigorosos.</p>
+                </div>
+                <div class="bento-item item-5">
+                    <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="font-montserrat">Emissora de Debêntures Estruturadas</h3>
+                    <p>Atuamos com foco em transparência, solidez e visão de longo prazo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 2: STATS BAR -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">R$ 492,9 bi</div>
+                    <div class="stat-label">em emissões de debêntures em 2025</div>
+                    <div class="stat-sub">Maior volume da série histórica</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">+34%</div>
+                    <div class="stat-label">de crescimento do mercado YoY</div>
+                    <div class="stat-sub">Crédito privado em expansão acelerada</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">lastreado em ativos reais</div>
+                    <div class="stat-sub">Recebíveis performados e a performar</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 3: COMO FUNCIONA -->
+    <section class="how-section" id="como-funciona">
+        <div class="container">
+            <div class="section-header">
+                <h2>Como funciona o investimento</h2>
+                <p>Do primeiro contato até a rentabilidade no seu portfólio, um processo rigoroso e transparente em cada etapa.</p>
+            </div>
+            <div class="how-steps">
+                <div class="how-step">
+                    <div class="step-num">01</div>
+                    <div class="step-icon"><i class="fas fa-search-dollar"></i></div>
+                    <h3>Análise e Elegibilidade</h3>
+                    <p>Nosso comitê avalia o seu perfil de investidor e apresenta as oportunidades de debêntures estruturadas disponíveis no momento.</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-num">02</div>
+                    <div class="step-icon"><i class="fas fa-file-signature"></i></div>
+                    <h3>Estruturação da Operação</h3>
+                    <p>Assinatura dos contratos de emissão com lastro verificado em recebíveis reais, taxas definidas e prazos claros.</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-num">03</div>
+                    <div class="step-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Rendimento e Monitoramento</h3>
+                    <p>Acompanhe seus investimentos no portal exclusivo para debenturistas, com relatórios mensais e total transparência.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 4: PILARES -->
+    <section id="solucoes" class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Eficiência e Segurança em Operações Estruturadas</h2>
+                <p>Descubra o que existe por trás da rentabilidade que a C4S entrega aos investidores.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-search-dollar service-icon"></i>
+                    <i class="fas fa-arrow-up-right-from-square arrow-up"></i>
+                    <h3 class="font-montserrat">Análise Criteriosa</h3>
+                    <p>Nenhuma oportunidade chega ao investidor sem passar por critérios técnicos e rígida avaliação financeira prévia.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-layer-group service-icon"></i>
+                    <i class="fas fa-arrow-up-right-from-square arrow-up"></i>
+                    <h3 class="font-montserrat">Debêntures Estruturadas</h3>
+                    <p>Ao contrário da renda fixa tradicional, o crédito estruturado une retornos consistentes à proteção de ativos.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-clipboard-check service-icon"></i>
+                    <i class="fas fa-arrow-up-right-from-square arrow-up"></i>
+                    <h3 class="font-montserrat">Monitoramento Contínuo</h3>
+                    <p>Procedimentos e sistemas implantados para garantir acompanhamento, através de relatórios claros e mensais.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-lock service-icon"></i>
+                    <i class="fas fa-arrow-up-right-from-square arrow-up"></i>
+                    <h3 class="font-montserrat">Garantias Reais</h3>
+                    <p>Lastro em recebíveis performados ou a performar, construindo uma barreira de segurança sólida para o capital.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-users-cog service-icon"></i>
+                    <i class="fas fa-arrow-up-right-from-square arrow-up"></i>
+                    <h3 class="font-montserrat">Visão Estratégica</h3>
+                    <p>Sócios com décadas de experiência identificando as melhores oportunidades e gerindo riscos de forma ágil.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-chart-line service-icon"></i>
+                    <i class="fas fa-arrow-up-right-from-square arrow-up"></i>
+                    <h3 class="font-montserrat">Crescimento Patrimonial</h3>
+                    <p>Desenvolvemos soluções para alavancar a estratégia de investidores experientes focados no longo prazo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 5: BENEFÍCIOS -->
+    <section class="benefits-section">
+        <div class="container benefits-grid">
+            <div class="graphic-box">
+                <div class="floating-card">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:24px;">
+                        <span style="color:var(--text-gray); font-size:13px; font-weight:600;">Total Projetos</span>
+                        <span style="color:var(--c4s-teal); font-weight:bold; font-size:13px;">+34%</span>
+                    </div>
+                    <div class="graphic-bar fill-teal"></div>
+                    <div class="graphic-bar fill-dark"></div>
+                    <div class="graphic-bar"></div>
+                </div>
+                <div class="floating-card-small">
+                    <i class="fas fa-chart-pie" style="color:var(--c4s-teal); font-size:28px; margin-bottom:12px;"></i>
+                    <div style="font-weight:bold; color:var(--c4s-dark-teal); font-size: 15px;">Gestão de Risco</div>
+                    <div style="font-size:12px; color:var(--text-gray);">Monitoramento Contínuo</div>
+                </div>
+            </div>
+            
+            <div class="benefits-text">
+                <h2>Os pilares da C4S para a sua rentabilidade</h2>
+                <p>Nossos processos garantem segurança e eficiência, mitigando riscos e impulsionando a estruturação financeira.</p>
+                
+                <div class="benefit-item">
+                    <i class="fas fa-check-circle benefit-icon"></i>
+                    <div>
+                        <h4>Análise Criteriosa</h4>
+                        <p>Nenhuma oportunidade chega ao investidor sem passar por critérios técnicos e avaliação financeira rigorosa prévia.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-check-circle benefit-icon"></i>
+                    <div>
+                        <h4>Ativos Reais</h4>
+                        <p>Operações lastreadas em recebíveis reais, blindando o risco sistêmico e oferecendo garantias sólidas ao seu capital.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-check-circle benefit-icon"></i>
+                    <div>
+                        <h4>Monitoramento Contínuo</h4>
+                        <p>Procedimentos e sistemas implantados para garantir forte governança, auditoria e acompanhamento de ponta a ponta.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 6: PERFIS -->
+    <section class="profiles-section-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: var(--c4s-dark-teal);">Para quem são nossas debêntures estruturadas?</h2>
+                <p style="color: var(--text-gray);">Nossas operações são modeladas para perfis com foco em consistência, segurança institucional e previsibilidade.</p>
+            </div>
+            
+            <div class="cards-grid">
+                <!-- Card 1: PF -->
+                <div class="profile-card">
+                    <div>
+                        <div style="color: var(--c4s-teal); font-size: 32px; margin-bottom: 16px;"><i class="fas fa-user"></i></div>
+                        <h3 class="font-montserrat">Investidor Individual (PF)</h3>
+                        <p>Desenvolvido para pessoas físicas que já possuem maturidade financeira e buscam diversificar o portfólio pessoal com ativos reais premium.</p>
+                    </div>
+                    <a href="contato.html" class="btn btn-outline-dark" style="width:100%; margin: 24px 0;">Falar com Especialista</a>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Renda estável por meio de crédito privado</li>
+                        <li><i class="fas fa-check"></i> Mitigação de risco via lastros reais performados</li>
+                        <li><i class="fas fa-check"></i> Descorrelação com a volatilidade da bolsa</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: PJ -->
+                <div class="profile-card">
+                    <div>
+                        <div style="color: var(--c4s-teal); font-size: 32px; margin-bottom: 16px;"><i class="fas fa-building"></i></div>
+                        <h3 class="font-montserrat">Caixa Corporativo (PMEs)</h3>
+                        <p>Ideal para pequenas e médias empresas (PJs) que possuem caixa livre e buscam rentabilizar suas reservas corporativas de forma segura.</p>
+                    </div>
+                    <a href="contato.html" class="btn btn-teal" style="width:100%; margin: 24px 0;">Otimizar Caixa Corporativo</a>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Rendimento premium superior ao CDI tradicional de banco</li>
+                        <li><i class="fas fa-check"></i> Segurança baseada em processos maduros de compliance</li>
+                        <li><i class="fas fa-check"></i> Relatórios mensais e auditoria com total clareza</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 7: MERCADO -->
+    <section class="market-section">
+        <div class="container market-grid">
+            <div class="market-text">
+                <h2>Oportunidades no Cenário de Crédito Privado</h2>
+                <p>O mercado está aquecido. As emissões de debêntures somaram <strong>R$ 492,9 bilhões em 2025</strong>, atingindo o maior volume da série histórica. Descubra por que investidores estão migrando parte do patrimônio para o crédito estruturado e como aproveitar essas conexões com a C4S.</p>
+                <a href="contato.html" class="btn btn-teal">Fale com um Especialista</a>
+            </div>
+            <div class="market-graphic">
+                <div class="circle-1"></div>
+                <div class="circle-2"></div>
+                <div class="market-icon-box" style="top: 20%; left: 20%;"><i class="fas fa-chart-line"></i></div>
+                <div class="market-icon-box" style="top: 15%; right: 25%;"><i class="fas fa-shield-alt"></i></div>
+                <div class="market-icon-box" style="bottom: 25%; left: 15%;"><i class="fas fa-file-invoice-dollar"></i></div>
+                <div class="market-icon-box" style="bottom: 20%; right: 20%;"><i class="fas fa-handshake"></i></div>
+                <div class="market-icon-box" style="top: 45%; left: 45%; background: var(--c4s-dark-teal); color: var(--c4s-teal);"><i class="fas fa-building"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 8: CTA FINAL -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Invista com estrutura sólida, transparência e ativos reais.</h2>
+            <p>Acelere a rentabilidade do seu capital com quem entende do mercado por dentro. Fale com nossos especialistas agora.</p>
+            <a href="contato.html" class="btn btn-teal" style="padding: 18px 48px; font-size: 16px;">Invista com a C4S</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo font-montserrat">C4S</div>
+                    <p style="margin-bottom: 20px;">Construída por especialistas do mercado financeiro. Atuamos como emissora de debêntures estruturadas com foco em transparência e garantias reais.</p>
+                    <p style="font-size: 12px; color: rgba(255,255,255,0.5);">CREDIT4SURE SECURITIZADORA S.A.<br>CNPJ: 37.566.075/0001-44</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Institucional</h4>
+                    <ul>
+                        <li><a href="sobre.html">Sobre a C4S</a></li>
+                        <li><a href="#">Governança</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Soluções</h4>
+                    <ul>
+                        <li><a href="index.html#empresas">Antecipação Corporativa</a></li>
+                        <li><a href="investidores.html">Debêntures Estruturadas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <p>contato@c4s.credit</p>
+                    <p style="margin-top:10px;">Curitiba/PR</p>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/company/credit4sure"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="http://wa.me/5541999150163"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2026 C4S Securitizadora. Todos os direitos reservados.</div>
+                <div style="display:flex; gap:20px;">
+                    <a href="privacidade.html">Termos &amp; Condições</a>
+                    <a href="privacidade.html">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            var btn = document.getElementById('hamburger-btn');
+            var overlay = document.getElementById('nav-overlay');
+            var drawer = document.getElementById('nav-drawer');
+            var closeBtn = document.getElementById('drawer-close');
+            function openMenu() { overlay.classList.add('open'); drawer.classList.add('open'); document.body.style.overflow = 'hidden'; }
+            function closeMenu() { overlay.classList.remove('open'); drawer.classList.remove('open'); document.body.style.overflow = ''; }
+            if (btn) btn.addEventListener('click', openMenu);
+            if (overlay) overlay.addEventListener('click', closeMenu);
+            if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+        })();
+    </script>
+
+</body>
+</html>
